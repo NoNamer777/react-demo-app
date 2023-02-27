@@ -1,4 +1,4 @@
-import './center.component.css';
+import './center.component.scss';
 
 function CenterComponent() {
     return (
