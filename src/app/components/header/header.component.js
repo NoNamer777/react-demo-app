@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom';
 import './header.component.scss';
 
 const HeaderComponent = () => {
@@ -5,10 +6,10 @@ const HeaderComponent = () => {
         <header className="flex-grow-0 flex-shrink-0">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <a className="navbar-brand">
+                    <Link to="/" className="navbar-brand">
                         <img src="assets/images/logo.png" alt="logo" />
                         DnD Mapp - Races
-                    </a>
+                    </Link>
                     <button
                         type="button"
                         className="navbar-toggler"
@@ -20,7 +21,9 @@ const HeaderComponent = () => {
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link">Overview</a>
+                                <NavLink to="/overview" className="nav-link">
+                                    Overview
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
