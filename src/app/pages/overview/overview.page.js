@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import RaceCardComponent from '../../components/race-card/race-card.component';
 
 const OverviewPage = () => {
-    const [races] = useState([]);
+    const races = useSelector((state) => state.races.value);
 
     return (
         <section>
