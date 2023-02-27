@@ -2,7 +2,7 @@ import './center.component.scss';
 
 function CenterComponent() {
     return (
-        <main>
+        <main className="flex-grow-1 flex-shrink-1">
             <p>center-component works!</p>
         </main>
     );
