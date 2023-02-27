@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import './center.component.scss';
 
 const CenterComponent = () => {
     return (

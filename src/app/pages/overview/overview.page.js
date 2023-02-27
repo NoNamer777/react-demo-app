@@ -1,5 +1,3 @@
-import './overview.page.scss';
-
 const OverviewPage = () => {
     return (
         <section>
