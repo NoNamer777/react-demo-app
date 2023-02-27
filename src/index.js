@@ -4,7 +4,6 @@ import AppComponent from './app/app.component';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
-const bootstrap = require('bootstrap');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
