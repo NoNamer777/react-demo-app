@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import PaginationComponent from './pagination/pagination.component';
 
 const HeaderComponent = () => {
     return (
@@ -25,6 +26,7 @@ const HeaderComponent = () => {
                                 </NavLink>
                             </li>
                         </ul>
+                        <PaginationComponent />
                     </div>
                 </div>
             </nav>
