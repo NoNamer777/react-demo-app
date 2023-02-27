@@ -19,7 +19,9 @@ package-lock.json
 
 ## IDE directories
 .idea/
-.vscode/
+.vscode/*
+!/.vscode/settings.json
+!/.vscode/extensions.json
 
 ## Imported source
 node_modules/

@@ -6,7 +6,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "preview": "npm run build && servor ./build index.html",
+        "preview": "npm run build && servor ./dist/react-demo-app/ index.html 4300",
         "lint": "eslint .",
         "format:check": "prettier -l .",
         "format:write": "prettier -w ."
