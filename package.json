@@ -6,6 +6,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "preview": "npm run build && servor ./build index.html",
         "lint": "eslint .",
         "format:check": "prettier -l .",
         "format:write": "prettier -w ."
@@ -23,6 +24,7 @@
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-prettier": "^4.2.1",
         "prettier": "^2.8.4",
-        "prettier-plugin-organize-imports": "^3.2.2"
+        "prettier-plugin-organize-imports": "^3.2.2",
+        "servor": "^4.0.2"
     }
 }
