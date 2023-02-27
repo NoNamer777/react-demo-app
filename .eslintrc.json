@@ -1,4 +1,5 @@
 {
     "root": true,
-    "extends": ["eslint:recommended", "react-app", "react-app/jest"]
+    "extends": ["eslint:recommended", "plugin:prettier/recommended", "react-app", "react-app/jest"],
+    "plugins": ["prettier"]
 }
