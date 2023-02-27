@@ -3,7 +3,7 @@ import CenterComponent from './components/center/center.component';
 import FooterComponent from './components/footer/footer.component';
 import HeaderComponent from './components/header/header.component';
 
-function AppComponent() {
+const AppComponent = () => {
     return (
         <>
             <HeaderComponent />
@@ -11,6 +11,6 @@ function AppComponent() {
             <FooterComponent />
         </>
     );
-}
+};
 
 export default AppComponent;
