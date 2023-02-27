@@ -1,5 +1,4 @@
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../../../assets/images/logo.png';
 
 const HeaderComponent = () => {
     return (
@@ -7,7 +6,7 @@ const HeaderComponent = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
-                        <img src={logo} alt="logo" className="logo" />
+                        <img src="assets/images/logo.png" alt="logo" className="logo" />
                         DnD Mapp - Races
                     </Link>
                     <button
