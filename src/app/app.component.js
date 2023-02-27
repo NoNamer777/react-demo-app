@@ -1,7 +1,16 @@
 import './app.component.css';
+import CenterComponent from './components/center/center.component';
+import FooterComponent from './components/footer/footer.component';
+import HeaderComponent from './components/header/header.component';
 
 function AppComponent() {
-    return <p>app-component works!</p>;
+    return (
+        <>
+            <HeaderComponent />
+            <CenterComponent />
+            <FooterComponent />
+        </>
+    );
 }
 
 export default AppComponent;
