@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
+        {/* Make the store available for the whole application */}
         <Provider store={store}>
             <RouterProvider router={router} />
         </Provider>
