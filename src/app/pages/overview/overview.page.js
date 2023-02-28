@@ -1,17 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import RaceCardComponent from '../../components/race-card/race-card.component';
-import { initializeRaceData } from '../../store/race.store';
+import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
 
 const OverviewPage = () => {
     // Select different values from the store to determine when to show what as the component's content
     const { active: races, isLoading, isInitialized } = useSelector((state) => state.races);
+    const { page: currentPage, pageSize } = useSelector((state) => state.pagination);
+
     const dispatch = useDispatch();
 
     // Start the data initialization process when the component is created
     useEffect(() => {
-        dispatch(initializeRaceData());
+        dispatch(fetchRaceData());
     }, [dispatch]);
+
+    // Whenever isInitialized, currentPage, or pageSize changes, fetch the races to show in the overview
+    useEffect(() => {
+        if (!isInitialized) return;
+        dispatch(fetchPagedRaceData({ page: currentPage, pageSize: pageSize }));
+    }, [dispatch, isInitialized, currentPage, pageSize]);
 
     return (
         <section>
