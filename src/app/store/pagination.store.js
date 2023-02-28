@@ -9,7 +9,6 @@ export const paginationSlice = createSlice({
     },
     reducers: {
         setTotalPages: (state, action) => {
-            console.log(action.payload);
             state.totalPages = Math.ceil(action.payload / 5);
         },
     },
