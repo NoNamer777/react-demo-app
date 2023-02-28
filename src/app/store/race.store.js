@@ -21,6 +21,7 @@ export const raceSlice = createSlice({
         isLoading: false,
         isInitialized: false,
     },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             // Upon calling the initialization process, we'll reflect in the store state that the data is loading
