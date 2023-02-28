@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import AppComponent from './app/app.component';
-import OverviewPage from './app/pages/overview/overview.page';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './app/app-router';
 import store from './app/store/store-provider';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
@@ -13,16 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<AppComponent />}>
-                        {/* Render the OverviewPage on the route defined below */}
-                        <Route path="overview" element={<OverviewPage />} />
-                        {/* Make sure that a User is sent back to the OverviewPage when they navigate to an invalid URL */}
-                        <Route path="*" element={<Navigate to="/overview" />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+            <RouterProvider router={router} />
         </Provider>
     </React.StrictMode>
 );
