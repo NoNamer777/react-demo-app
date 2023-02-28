@@ -1,3 +1,5 @@
+import './race-card.component.scss';
+
 const RaceCardComponent = ({ race }) => {
     return (
         <div className="card shadow-sm bg-body-tertiary text-body-tertiary">
