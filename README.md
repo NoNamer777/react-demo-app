@@ -21,9 +21,11 @@ Prettier formats your files after every save. For ESLint, check
 #### Webstorm
 
 For Webstorm, the Prettier configuration should look like the following:
+
 ![webstorm-prettier-config.png](documentation/images/webstorm-prettier-config.png)
 
 And the ESLint configuration should like the following:
+
 ![webstorm-eslint-config.png](documentation/images/webstorm-eslint-config.png)
 
 #### Visual Studio Code
