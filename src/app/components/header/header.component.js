@@ -20,14 +20,14 @@ const HeaderComponent = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
-                        <div className="d-flex align-items-center w-100 mt-2 mt-lg-0">
-                            <ul className="navbar-nav me-auto">
-                                <li className="nav-item">
-                                    <NavLink to="/overview" className="nav-link">
-                                        Overview
-                                    </NavLink>
-                                </li>
-                            </ul>
+                        <ul className="navbar-nav me-auto">
+                            <li className="nav-item">
+                                <NavLink to="/overview" className="nav-link">
+                                    Overview
+                                </NavLink>
+                            </li>
+                        </ul>
+                        <div className="d-none d-lg-flex">
                             <PaginationComponent />
                             <button
                                 type="button"
