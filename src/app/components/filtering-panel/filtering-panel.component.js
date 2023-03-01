@@ -1,4 +1,16 @@
 const FilteringPanelComponent = () => {
+    const initialFormValue = {
+        sortingOn: '',
+    };
+
+    const [sortAttributes] = useState([
+        { value: 'name', label: 'Name' },
+        { value: 'size', label: 'Size' },
+        { value: 'speed', label: 'Speed' },
+    ]);
+
+    const [sortingOn, setSortingOn] = useState(initialFormValue.sortingOn);
+
     return (
         <aside className="offcanvas offcanvas-end" tabIndex="-1" id="filter-sorting-panel">
             <section className="offcanvas-header">
@@ -10,12 +22,17 @@ const FilteringPanelComponent = () => {
                 <form className="h-100 d-flex flex-column gap-2">
                     <div className="mb-3">
                         <label className="form-label">Sorting on</label>
-                        {/* TODO - Connect to the form model */}
-                        <select className="form-select">
-                            {/* TODO - Add 'null' option */}
-                            {/*<template v-for="sortable of SORTABLE_ATTRIBUTES" :key="sortable.value">*/}
-                            {/*    <option :value="sortable.value">{{ sortable.label }}</option>*/}
-                            {/*</template>*/}
+                        <select
+                            className="form-select"
+                            value={sortingOn}
+                            onChange={(event) => setSortingOn(event.target.value)}
+                        >
+                            <option value=""></option>
+                            {sortAttributes.map((sortable) => (
+                                <option value={sortable.value} key={sortable.value}>
+                                    {sortable.label}
+                                </option>
+                            ))}
                         </select>
                         {/*<template v-for="order of SORTING_ORDERS" :key="order.value">*/}
                         {/*    <div class="form-check mt-2">*/}
