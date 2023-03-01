@@ -3,7 +3,7 @@ import PaginationComponent from './pagination/pagination.component';
 
 const HeaderComponent = () => {
     return (
-        <header className="flex-grow-0 flex-shrink-0">
+        <header className="flex-grow-0 flex-shrink-0 sticky-top">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
