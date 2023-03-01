@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import 'bootstrap/dist/js/bootstrap.min';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
