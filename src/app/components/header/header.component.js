@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, NavLink } from 'react-router-dom';
 import PaginationComponent from './pagination/pagination.component';
 
@@ -28,6 +29,14 @@ const HeaderComponent = () => {
                                 </li>
                             </ul>
                             <PaginationComponent />
+                            <button
+                                type="button"
+                                className="btn btn-primary ms-2"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#filter-sorting-panel"
+                            >
+                                <FontAwesomeIcon icon="filter" />
+                            </button>
                         </div>
                     </div>
                 </div>
