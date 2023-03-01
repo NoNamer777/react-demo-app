@@ -1,3 +1,5 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -6,6 +8,8 @@ import { router } from './app/app-router';
 import store from './app/store/store-provider';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
+
+library.add(faFilter);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
