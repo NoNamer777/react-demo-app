@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const FilteringPanelComponent = () => {
     const initialFormValue = {
@@ -19,6 +19,26 @@ const FilteringPanelComponent = () => {
 
     const [sortingOn, setSortingOn] = useState(initialFormValue.sortingOn);
     const [sortingOrder, setSortingOrder] = useState(initialFormValue.sortingOrder);
+
+    const [hasChanged, setHasChanged] = useState(false);
+
+    useEffect(() => {
+        const currentFormValue = { sortingOrder, sortingOn };
+        let changeDetected = false;
+
+        // Determine whether the form has changed from the initial value
+        Object.entries(initialFormValue).forEach(([key, value]) => {
+            if (changeDetected) return;
+            changeDetected = currentFormValue[key] !== value;
+        });
+
+        if (changeDetected && !hasChanged) {
+            setHasChanged(true);
+        } else if (!changeDetected && hasChanged) {
+            setHasChanged(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortingOrder, sortingOn]);
 
 
     return (
@@ -71,13 +91,15 @@ const FilteringPanelComponent = () => {
                             {/*</template>*/}
                         </select>
                     </div>
-                    {/* TODO - Disable when there are no changes made since the panel has opened or if there is no filter or sorting applied */}
-                    {/* TODO - Add click handler */}
-                    <button type="reset" className="btn btn-danger">
+                    <button type="reset" className="btn btn-danger" disabled={!hasChanged}>
                         Reset
                     </button>
-                    {/* TODO - Disable when there are no changes made since the panel has opened */}
-                    <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas">
+                    <button
+                        type="submit"
+                        className="btn btn-success"
+                        data-bs-dismiss="offcanvas"
+                        disabled={!hasChanged}
+                    >
                         Apply
                     </button>
                 </form>
