@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilteringPanelComponent from '../../components/filtering-panel/filtering-panel.component';
 import RaceCardComponent from '../../components/race-card/race-card.component';
 import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
+import './overview.page.scss';
 
 const OverviewPage = () => {
     // Select different values from the store to determine when to show what as the component's content
@@ -47,6 +49,14 @@ const OverviewPage = () => {
                 {(isLoading || !isInitialized) && <div className="spinner-border"></div>}
             </div>
             <FilteringPanelComponent />
+            <button
+                type="button"
+                className="btn btn-primary position-fixed filter-btn d-lg-none"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#filter-sorting-panel"
+            >
+                <FontAwesomeIcon icon="filter" />
+            </button>
         </section>
     );
 };
