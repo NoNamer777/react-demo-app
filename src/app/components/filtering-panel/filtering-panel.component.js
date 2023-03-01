@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 const FilteringPanelComponent = () => {
     const initialFormValue = {
+        sortingOrder: 'asc',
         sortingOn: '',
     };
 
@@ -9,7 +12,14 @@ const FilteringPanelComponent = () => {
         { value: 'speed', label: 'Speed' },
     ]);
 
+    const [sortOrders] = useState([
+        { value: 'asc', label: 'Ascending' },
+        { value: 'desc', label: 'Descending' },
+    ]);
+
     const [sortingOn, setSortingOn] = useState(initialFormValue.sortingOn);
+    const [sortingOrder, setSortingOrder] = useState(initialFormValue.sortingOrder);
+
 
     return (
         <aside className="offcanvas offcanvas-end" tabIndex="-1" id="filter-sorting-panel">
@@ -34,12 +44,21 @@ const FilteringPanelComponent = () => {
                                 </option>
                             ))}
                         </select>
-                        {/*<template v-for="order of SORTING_ORDERS" :key="order.value">*/}
-                        {/*    <div class="form-check mt-2">*/}
-                        {/*        <input type="radio" class="form-check-input" v-model="form.sortingOrder" :value="order.value" />*/}
-                        {/*        <label class="form-check-label">{{ order.label }}</label>*/}
-                        {/*    </div>*/}
-                        {/*</template>*/}
+                        {sortOrders.map((order) => (
+                            <div className="form-check mt-2" key={order.value}>
+                                <label className="form-check-label">
+                                    <input
+                                        type="radio"
+                                        className="form-check-input"
+                                        value={order.value}
+                                        name="sorting-order"
+                                        defaultChecked={sortingOrder === order.value}
+                                        onChange={(event) => setSortingOrder(event.target.value)}
+                                    />
+                                    {order.label}
+                                </label>
+                            </div>
+                        ))}
                     </div>
                     <div className="mb-auto">
                         <label className="form-label">Filter by Trait</label>
