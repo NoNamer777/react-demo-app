@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
 const FilteringPanelComponent = () => {
+    const defaultFormValue = {
+        sortingOrder: 'asc',
+        sortingOn: '',
+    };
+
     const initialFormValue = {
         sortingOrder: 'asc',
         sortingOn: '',
@@ -40,6 +45,10 @@ const FilteringPanelComponent = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortingOrder, sortingOn]);
 
+    function resetForm() {
+        setSortingOn(defaultFormValue.sortingOn);
+        setSortingOrder(defaultFormValue.sortingOrder);
+    }
 
     return (
         <aside className="offcanvas offcanvas-end" tabIndex="-1" id="filter-sorting-panel">
@@ -91,7 +100,7 @@ const FilteringPanelComponent = () => {
                             {/*</template>*/}
                         </select>
                     </div>
-                    <button type="reset" className="btn btn-danger" disabled={!hasChanged}>
+                    <button type="reset" className="btn btn-danger" disabled={!hasChanged} onClick={resetForm}>
                         Reset
                     </button>
                     <button
