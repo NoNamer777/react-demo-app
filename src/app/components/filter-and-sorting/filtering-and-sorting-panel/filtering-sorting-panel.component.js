@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { queryParamKeys } from '../../../constants/queryParam';
+import { SORTABLE_ATTRIBUTES } from '../../../constants/sorting';
 import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
@@ -9,11 +10,7 @@ const FilteringSortingPanelComponent = () => {
 
     const [queryParams, setQueryParams] = useSearchParams();
 
-    const [sortableAttributes] = useState([
-        { value: 'name', label: 'Name' },
-        { value: 'size', label: 'Size' },
-        { value: 'speed', label: 'Speed' },
-    ]);
+    const [sortableAttributes] = useState(SORTABLE_ATTRIBUTES);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState('');
 
