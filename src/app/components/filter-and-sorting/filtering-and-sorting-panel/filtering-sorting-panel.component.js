@@ -1,13 +1,24 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
+    const { sorting } = useSelector((state) => state.pagination);
+    const dispatch = useDispatch();
+
     const [sortableAttributes] = useState([
         { value: 'name', label: 'Name' },
         { value: 'size', label: 'Size' },
         { value: 'speed', label: 'Speed' },
     ]);
 
-    const [sortingOnAttribute, setSortingOnAttribute] = useState('');
+    const [sortingOnAttribute, setSortingOnAttribute] = useState(sorting.on);
+
+    function handleOnSubmit(submitEvent) {
+        submitEvent.preventDefault();
+
+        dispatch(setSorting({ on: sortingOnAttribute }));
+    }
 
     return (
         <div className="offcanvas offcanvas-end" tabIndex="-1" id="filtering-sorting-panel">
@@ -15,7 +26,7 @@ const FilteringSortingPanelComponent = () => {
                 <h5 className="offcanvas-title">Filtering and Sorting</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <form className="offcanvas-body d-flex flex-column gap-3">
+            <form className="offcanvas-body d-flex flex-column gap-3" onSubmit={handleOnSubmit}>
                 <div className="mb-3">
                     <label className="form-label" htmlFor="attribute-sorting-select">
                         Sort by attribute
