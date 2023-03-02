@@ -26,7 +26,9 @@ const HeaderComponent = () => {
                                 </NavLink>
                             </li>
                         </ul>
-                        <PaginationComponent />
+                        <div className="d-none d-lg-flex">
+                            <PaginationComponent />
+                        </div>
                     </div>
                 </div>
             </nav>
