@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { setSorting } from '../../../store/pagination.store';
@@ -15,12 +15,18 @@ const FilteringSortingPanelComponent = () => {
         { value: 'speed', label: 'Speed' },
     ]);
 
-    const [sortingOnAttribute, setSortingOnAttribute] = useState(sorting.on);
+    const [sortingOnAttribute, setSortingOnAttribute] = useState('');
+
+    useEffect(() => {
+        if (queryParams.has('sortingOnAttribute')) {
+            dispatch(setSorting({ on: queryParams.get('sortingOnAttribute') }));
+            setSortingOnAttribute(queryParams.get('sortingOnAttribute'));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryParams]);
 
     function handleOnSubmit(submitEvent) {
         submitEvent.preventDefault();
-
-        dispatch(setSorting({ on: sortingOnAttribute }));
         updateQueryParams();
     }
 
@@ -47,7 +53,7 @@ const FilteringSortingPanelComponent = () => {
                     <select
                         className="form-select"
                         id="attribute-sorting-select"
-                        defaultValue={sortingOnAttribute}
+                        value={sortingOnAttribute}
                         onChange={(e) => setSortingOnAttribute(e.target.value)}
                     >
                         <option value=""></option>
