@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { queryParamKeys } from '../../../constants/queryParam';
 import { setSorting } from '../../../store/pagination.store';
-
-const queryParamKeys = {
-    sortingOnAttribute: 'sortingOnAttribute',
-};
 
 const FilteringSortingPanelComponent = () => {
     const dispatch = useDispatch();
