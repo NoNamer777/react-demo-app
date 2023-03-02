@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { queryParamKeys } from '../../../constants/queryParam';
-import { SORTABLE_ATTRIBUTES } from '../../../constants/sorting';
+import { SORTABLE_ATTRIBUTES, SORT_ORDERS } from '../../../constants/sorting';
 import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
@@ -11,8 +11,10 @@ const FilteringSortingPanelComponent = () => {
     const [queryParams, setQueryParams] = useSearchParams();
 
     const [sortableAttributes] = useState(SORTABLE_ATTRIBUTES);
+    const [sortOrders] = useState(SORT_ORDERS);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState('');
+    const [sortOrder, setSortOrder] = useState('asc');
 
     useEffect(() => {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
@@ -43,7 +45,7 @@ const FilteringSortingPanelComponent = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <form className="offcanvas-body d-flex flex-column gap-3" onSubmit={handleOnSubmit}>
-                <div className="mb-3">
+                <div>
                     <label className="form-label" htmlFor="attribute-sorting-select">
                         Sort by attribute
                     </label>
@@ -61,7 +63,23 @@ const FilteringSortingPanelComponent = () => {
                         ))}
                     </select>
                 </div>
-                <div className="mb-auto">
+                {sortOrders.map((order) => (
+                    <div className="form-check" key={order.value}>
+                        <input
+                            className="form-check-input"
+                            id={'sort-order-radio-' + order.value}
+                            type="radio"
+                            name="sort-order"
+                            value={order.value}
+                            defaultChecked={sortOrder === order.value}
+                            onChange={() => setSortOrder(order.value)}
+                        />
+                        <label className="form-check-label" htmlFor={'sort-order-radio-' + order.value}>
+                            {order.label}
+                        </label>
+                    </div>
+                ))}
+                <div className="mb-auto mt-3">
                     <label htmlFor="trait-filter-select" className="form-label">
                         Filter by Trait:
                     </label>
