@@ -21,6 +21,10 @@ const FilteringSortingPanelComponent = () => {
             dispatch(setSorting({ on: queryParams.get(queryParamKeys.sortingOnAttribute) }));
             setSortingOnAttribute(queryParams.get(queryParamKeys.sortingOnAttribute));
         }
+        if (queryParams.has(queryParamKeys.sortOrder)) {
+            dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
+            setSortOrder(queryParams.get(queryParamKeys.sortOrder));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams]);
 
