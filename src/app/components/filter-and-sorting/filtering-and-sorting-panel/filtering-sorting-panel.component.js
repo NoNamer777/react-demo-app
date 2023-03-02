@@ -33,6 +33,7 @@ const FilteringSortingPanelComponent = () => {
         const queryParamsObj = {};
 
         queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);
+        queryParams.append(queryParamKeys.sortOrder, sortOrder);
         queryParams.forEach((value, param) => (queryParamsObj[param] = value));
 
         setQueryParams(queryParamsObj);
