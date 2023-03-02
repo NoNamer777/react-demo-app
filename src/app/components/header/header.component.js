@@ -21,7 +21,7 @@ const HeaderComponent = () => {
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink to={process.env.PUBLIC_URL + 'overview'} className="nav-link">
+                                <NavLink to={process.env.PUBLIC_URL + '/overview'} className="nav-link">
                                     Overview
                                 </NavLink>
                             </li>
