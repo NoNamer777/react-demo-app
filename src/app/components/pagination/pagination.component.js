@@ -32,11 +32,18 @@ const PaginationComponent = () => {
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
-        return (
+        let route =
             process.env.PUBLIC_URL +
             '/overview?' +
-            searchParams.toString().replace(/page=[(0-9)*]/, 'page=' + pageNumber)
-        );
+            searchParams.toString().replace(/page=[(0-9)*]/, 'page=' + pageNumber);
+
+        if (!route.match(/page=[(0-9)*]/)) {
+            if (!route.endsWith('?')) {
+                route += '&';
+            }
+            route += 'page=' + pageNumber;
+        }
+        return route;
     }
 
     return (
