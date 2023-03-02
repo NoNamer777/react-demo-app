@@ -13,7 +13,7 @@ jobs:
         run: |
           echo ${{ secrets.ENV_FILE_CONTENTS }} >> .env.local
           npm ci
-          npm run vue-project:deploy
+          npm run deploy
           
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
