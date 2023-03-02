@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import FilteringSortingPanelComponent from '../../components/filter-and-sorting/filtering-and-sorting-panel/filtering-sorting-panel.component';
 import RaceCardComponent from '../../components/race-card/race-card.component';
 import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
 
@@ -47,6 +48,7 @@ const OverviewPage = () => {
                 {/* Show a spinner when the data is not yet initialized or is loading */}
                 {(isLoading || !isInitialized) && <div className="spinner-border"></div>}
             </div>
+            <FilteringSortingPanelComponent />
         </section>
     );
 };
