@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import FilterButtonComponent from '../filter-and-sorting/filter-button/filter-button.component';
 import PaginationComponent from '../pagination/pagination.component';
 
 const HeaderComponent = () => {
@@ -26,8 +27,9 @@ const HeaderComponent = () => {
                                 </NavLink>
                             </li>
                         </ul>
-                        <div className="d-none d-lg-flex">
+                        <div className="d-none d-lg-flex gap-2 align-items-center">
                             <PaginationComponent />
+                            <FilterButtonComponent />
                         </div>
                     </div>
                 </div>
