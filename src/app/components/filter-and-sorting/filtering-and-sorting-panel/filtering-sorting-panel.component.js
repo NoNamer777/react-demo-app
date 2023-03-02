@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { setSorting } from '../../../store/pagination.store';
 
+const queryParamKeys = {
+    sortingOnAttribute: 'sortingOnAttribute',
+};
+
 const FilteringSortingPanelComponent = () => {
-    const { sorting } = useSelector((state) => state.pagination);
     const dispatch = useDispatch();
 
     const [queryParams, setQueryParams] = useSearchParams();
@@ -18,9 +21,9 @@ const FilteringSortingPanelComponent = () => {
     const [sortingOnAttribute, setSortingOnAttribute] = useState('');
 
     useEffect(() => {
-        if (queryParams.has('sortingOnAttribute')) {
-            dispatch(setSorting({ on: queryParams.get('sortingOnAttribute') }));
-            setSortingOnAttribute(queryParams.get('sortingOnAttribute'));
+        if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
+            dispatch(setSorting({ on: queryParams.get(queryParamKeys.sortingOnAttribute) }));
+            setSortingOnAttribute(queryParams.get(queryParamKeys.sortingOnAttribute));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams]);
@@ -33,7 +36,7 @@ const FilteringSortingPanelComponent = () => {
     function updateQueryParams() {
         const queryParamsObj = {};
 
-        queryParams.append('sortingOnAttribute', sortingOnAttribute);
+        queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);
         queryParams.forEach((value, param) => (queryParamsObj[param] = value));
 
         setQueryParams(queryParamsObj);
