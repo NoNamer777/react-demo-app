@@ -13,8 +13,8 @@ const FilteringSortingPanelComponent = () => {
     const [sortableAttributes] = useState(SORTABLE_ATTRIBUTES);
     const [sortOrders] = useState(SORT_ORDERS);
 
-    const [sortingOnAttribute, setSortingOnAttribute] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortingOnAttribute, setSortingOnAttribute] = useState(queryParams.get(queryParamKeys.sortingOnAttribute));
+    const [sortOrder, setSortOrder] = useState(queryParams.get(queryParamKeys.sortOrder));
 
     useEffect(() => {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
