@@ -72,7 +72,7 @@ const FilteringSortingPanelComponent = () => {
                 <button type="reset" className="btn btn-danger">
                     Reset
                 </button>
-                <button type="submit" className="btn btn-success">
+                <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas">
                     Apply
                 </button>
             </form>
