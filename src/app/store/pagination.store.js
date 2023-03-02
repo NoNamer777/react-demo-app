@@ -8,6 +8,7 @@ export const paginationSlice = createSlice({
         totalPages: undefined,
         sorting: {
             on: '',
+            order: 'asc',
         },
     },
     reducers: {

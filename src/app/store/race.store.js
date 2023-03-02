@@ -63,6 +63,9 @@ export const raceSlice = createSlice({
                 if (action.payload.sorting.on) {
                     races.sort((r1, r2) => sortRaceByAttribute(r1, r2, action.payload.sorting.on));
                 }
+                if (action.payload.sorting.order === 'desc') {
+                    races.reverse();
+                }
             }
             state.active = races.slice(start, end);
             state.isLoading = false;
