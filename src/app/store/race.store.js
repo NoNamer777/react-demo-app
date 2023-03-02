@@ -65,6 +65,7 @@ export const raceSlice = createSlice({
     },
 });
 
+// eslint-disable-next-line no-empty-pattern
 export const {} = raceSlice.actions;
 
 export default raceSlice.reducer;
