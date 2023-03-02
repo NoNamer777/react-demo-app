@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
     const { sorting } = useSelector((state) => state.pagination);
     const dispatch = useDispatch();
+
+    const [queryParams, setQueryParams] = useSearchParams();
 
     const [sortableAttributes] = useState([
         { value: 'name', label: 'Name' },
@@ -18,6 +21,16 @@ const FilteringSortingPanelComponent = () => {
         submitEvent.preventDefault();
 
         dispatch(setSorting({ on: sortingOnAttribute }));
+        updateQueryParams();
+    }
+
+    function updateQueryParams() {
+        const queryParamsObj = {};
+
+        queryParams.append('sortingOnAttribute', sortingOnAttribute);
+        queryParams.forEach((value, param) => (queryParamsObj[param] = value));
+
+        setQueryParams(queryParamsObj);
     }
 
     return (
