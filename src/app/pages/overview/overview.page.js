@@ -13,13 +13,15 @@ const OverviewPage = () => {
     // Start the data initialization process when the component is created
     useEffect(() => {
         dispatch(fetchRaceData());
-    }, [dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Whenever isInitialized, currentPage, or pageSize changes, fetch the races to show in the overview
     useEffect(() => {
         if (!isInitialized) return;
         dispatch(fetchPagedRaceData({ page: currentPage, pageSize: pageSize }));
-    }, [dispatch, isInitialized, currentPage, pageSize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isInitialized, currentPage, pageSize]);
 
     return (
         <section>
