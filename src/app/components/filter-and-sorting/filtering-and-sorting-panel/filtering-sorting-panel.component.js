@@ -51,7 +51,7 @@ const FilteringSortingPanelComponent = () => {
             </div>
             <form className="offcanvas-body d-flex flex-column gap-3" onSubmit={handleOnSubmit}>
                 <div>
-                    <label className="form-label" htmlFor="attribute-sorting-select">
+                    <label className="form-label fw-bold" htmlFor="attribute-sorting-select">
                         Sort by attribute
                     </label>
                     <select
@@ -68,6 +68,7 @@ const FilteringSortingPanelComponent = () => {
                         ))}
                     </select>
                 </div>
+                <label className="fw-bold">Sorting order</label>
                 {sortOrders.map((order) => (
                     <div className="form-check" key={order.value}>
                         <input
@@ -85,7 +86,7 @@ const FilteringSortingPanelComponent = () => {
                     </div>
                 ))}
                 <div className="mb-auto mt-3">
-                    <label htmlFor="trait-filter-select" className="form-label">
+                    <label htmlFor="trait-filter-select" className="form-label fw-bold">
                         Filter by Trait:
                     </label>
                     <select className="form-select" id="trait-filter-select">
