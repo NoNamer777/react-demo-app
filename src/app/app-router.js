@@ -8,9 +8,9 @@ export const router = createBrowserRouter(
             {/* Render the OverviewPage on the route defined below */}
             <Route path="overview" element={<OverviewPage />} />
             {/* Make sure that a User is sent back to the OverviewPage when they navigate to an invalid URL */}
-            <Route path="*" element={<Navigate to="/overview" />} />
-            {/* Make sure the a User is sent to the OverViewPage whenever they visit the root route */}
-            <Route index element={<Navigate to="/overview" />} />
+            <Route path="*" element={<Navigate to="overview" />} />
+            {/* Make sure that a User is sent to the OverViewPage whenever they visit the root route */}
+            <Route index element={<Navigate to="overview" />} />
         </Route>
     )
 );
