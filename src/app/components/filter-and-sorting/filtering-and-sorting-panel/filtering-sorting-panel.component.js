@@ -1,4 +1,14 @@
+import { useState } from 'react';
+
 const FilteringSortingPanelComponent = () => {
+    const [sortableAttributes] = useState([
+        { value: 'name', label: 'Name' },
+        { value: 'size', label: 'Size' },
+        { value: 'speed', label: 'Speed' },
+    ]);
+
+    const [sortingOnAttribute, setSortingOnAttribute] = useState('');
+
     return (
         <div className="offcanvas offcanvas-end" tabIndex="-1" id="filtering-sorting-panel">
             <div className="offcanvas-header border-bottom">
@@ -10,8 +20,18 @@ const FilteringSortingPanelComponent = () => {
                     <label className="form-label" htmlFor="attribute-sorting-select">
                         Sort by attribute
                     </label>
-                    <select className="form-select" id="attribute-sorting-select">
+                    <select
+                        className="form-select"
+                        id="attribute-sorting-select"
+                        defaultValue={sortingOnAttribute}
+                        onChange={(e) => setSortingOnAttribute(e.target.value)}
+                    >
                         <option value=""></option>
+                        {sortableAttributes.map((sortable) => (
+                            <option value={sortable.value} key={sortable.value}>
+                                {sortable.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className="mb-auto">
