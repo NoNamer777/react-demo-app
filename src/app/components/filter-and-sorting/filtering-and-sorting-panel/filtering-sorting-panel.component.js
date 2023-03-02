@@ -37,6 +37,14 @@ const FilteringSortingPanelComponent = () => {
         updateQueryParams();
     }
 
+    function handleReset() {
+        setQueryParams({ page: 1 });
+
+        dispatch(setSorting({ on: '', order: 'asc' }));
+        setSortingOnAttribute('');
+        setSortOrder('asc');
+    }
+
     function updateQueryParams() {
         const queryParamsObj = {};
 
@@ -97,7 +105,7 @@ const FilteringSortingPanelComponent = () => {
                         <option value=""></option>
                     </select>
                 </div>
-                <button type="reset" className="btn btn-danger">
+                <button type="reset" className="btn btn-danger" onClick={handleReset}>
                     Reset
                 </button>
                 <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas">
