@@ -6,7 +6,7 @@ const HeaderComponent = () => {
         <header className="flex-grow-0 flex-shrink-0">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <Link to="/" className="navbar-brand">
+                    <Link to={process.env.PUBLIC_URL} className="navbar-brand">
                         <img src="assets/images/logo.png" alt="logo" className="logo" />
                         DnD Mapp - Races
                     </Link>
@@ -21,7 +21,7 @@ const HeaderComponent = () => {
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink to="/overview" className="nav-link">
+                                <NavLink to={process.env.PUBLIC_URL + 'overview'} className="nav-link">
                                     Overview
                                 </NavLink>
                             </li>

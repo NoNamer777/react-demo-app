@@ -32,7 +32,7 @@ const PaginationComponent = () => {
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
-        return '/overview?page=' + pageNumber;
+        return process.env.PUBLIC_URL + 'overview?page=' + pageNumber;
     }
 
     return (
