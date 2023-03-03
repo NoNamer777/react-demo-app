@@ -10,6 +10,7 @@ import store from './app/store/store-provider';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
+// Sets up the Font Awesome icons that are globally available
 library.add(...[faFilter]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
 import { goToPage, setTotalPages } from '../../store/pagination.store';
 
+/** Handles showing the different slices of content of the application */
 const PaginationComponent = () => {
     const { filtered: data } = useSelector((state) => state.races);
     const { page: currentPage, totalPages: maxPages } = useSelector((state) => state.pagination);
@@ -11,24 +12,23 @@ const PaginationComponent = () => {
 
     const dispatch = useDispatch();
 
+    // Whenever the filtered content changes, update the total number of pages
     useEffect(() => {
         dispatch(setTotalPages(data.length));
     }, [data]);
 
-    useEffect(() => {
-        /** Updates the pagination store whenever the query params in the route updates */
-        function updatePageFromRoute() {
-            if (!searchParams.has('page')) return;
+    useEffect(() => updatePageFromRoute(), [searchParams]);
 
-            const pageNumberFromRoute = parseInt(searchParams.get('page'));
+    /** Updates the pagination store whenever the query params in the route update */
+    function updatePageFromRoute() {
+        if (!searchParams.has('page')) return;
 
-            if (pageNumberFromRoute !== currentPage) {
-                dispatch(goToPage(pageNumberFromRoute));
-            }
+        const pageNumberFromRoute = parseInt(searchParams.get('page'));
+
+        if (pageNumberFromRoute !== currentPage) {
+            dispatch(goToPage(pageNumberFromRoute));
         }
-
-        updatePageFromRoute();
-    }, [currentPage, searchParams]);
+    }
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
@@ -37,6 +37,7 @@ const PaginationComponent = () => {
             '/overview?' +
             searchParams.toString().replace(/page=[(0-9)*]/, 'page=' + pageNumber);
 
+        // Add the page number, if it isn't build into the link yet
         if (!route.match(/page=[(0-9)*]/)) {
             if (!route.endsWith('?')) {
                 route += '&';
@@ -46,6 +47,7 @@ const PaginationComponent = () => {
         return route;
     }
 
+    /** Show 'First' for the page nr. 1, and 'Last' for the last page. */
     function renderPageLabel(pageNumber) {
         if (pageNumber === 1) {
             return 'First';

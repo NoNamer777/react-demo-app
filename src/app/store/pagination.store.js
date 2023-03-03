@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DEFAULT_FILTERING_BY_TRAIT, DEFAULT_SORTING_ON_ATTRIBUTE, DEFAULT_SORT_ORDER } from '../constants/sorting';
 
+/** Contains state data necessary for the pagination, and filters and the sorting of data. */
 export const paginationSlice = createSlice({
     name: 'pagination',
     initialState: {

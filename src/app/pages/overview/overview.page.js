@@ -4,6 +4,7 @@ import FilteringSortingPanelComponent from '../../components/filter-and-sorting/
 import RaceCardComponent from '../../components/race-card/race-card.component';
 import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
 
+/** Contains a visual representation of the data */
 const OverviewPage = () => {
     // Select different values from the store to determine when to show what as the component's content
     const { active: races, isLoading, isInitialized } = useSelector((state) => state.races);

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './filter-button.component.scss';
 
+/** A button responsible for toggling the sorting and filtering side panel. */
 const FilterButtonComponent = () => {
     return (
         <button
