@@ -12,3 +12,5 @@ export const SORT_ORDERS = [
 ];
 
 export const DEFAULT_SORT_ORDER = 'asc';
+
+export const DEFAULT_FILTERING_BY_TRAIT = '';
