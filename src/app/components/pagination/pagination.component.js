@@ -79,10 +79,10 @@ const PaginationComponent = () => {
         pageLinks = pageLinks.slice(start, end);
 
         // Always add the first and last pages for easy access
-        if (!pageLinks.find((page) => page.number === 1)) {
+        if (!pageLinks.find((page) => page.label === 'First')) {
             pageLinks.unshift({ number: 1, label: 'First' });
         }
-        if (!pageLinks.find((page) => page.number === maxPages)) {
+        if (!pageLinks.find((page) => page.label === 'Last')) {
             pageLinks.push({ number: maxPages, label: 'Last' });
         }
         return pageLinks;
