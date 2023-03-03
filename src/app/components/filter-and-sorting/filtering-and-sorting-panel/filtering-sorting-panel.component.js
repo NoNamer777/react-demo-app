@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { queryParamKeys } from '../../../constants/queryParam';
-import { SORTABLE_ATTRIBUTES, SORT_ORDERS } from '../../../constants/sorting';
+import {
+    DEFAULT_SORTING_ON_ATTRIBUTE,
+    DEFAULT_SORT_ORDER,
+    SORTABLE_ATTRIBUTES,
+    SORT_ORDERS,
+} from '../../../constants/sorting';
 import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
@@ -14,9 +19,9 @@ const FilteringSortingPanelComponent = () => {
     const [sortOrders] = useState(SORT_ORDERS);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState(
-        getInitialValue(queryParamKeys.sortingOnAttribute, '')
+        getInitialValue(queryParamKeys.sortingOnAttribute, DEFAULT_SORTING_ON_ATTRIBUTE)
     );
-    const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, 'asc'));
+    const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER));
 
     const [hasChanged, setChanged] = useState(false);
     const [hasInitialized, setInitialized] = useState(false);
@@ -58,9 +63,9 @@ const FilteringSortingPanelComponent = () => {
     function handleReset() {
         setQueryParams({ page: 1 });
 
-        dispatch(setSorting({ on: '', order: 'asc' }));
-        setSortingOnAttribute('');
-        setSortOrder('asc');
+        dispatch(setSorting({ on: DEFAULT_SORTING_ON_ATTRIBUTE, order: DEFAULT_SORT_ORDER }));
+        setSortingOnAttribute(DEFAULT_SORTING_ON_ATTRIBUTE);
+        setSortOrder(DEFAULT_SORT_ORDER);
     }
 
     function updateQueryParams() {
