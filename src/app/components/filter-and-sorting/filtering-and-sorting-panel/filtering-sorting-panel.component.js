@@ -99,7 +99,12 @@ const FilteringSortingPanelComponent = () => {
     function updateQueryParams() {
         const queryParamsObj = {};
 
-        queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);
+        if (sortingOnAttribute !== DEFAULT_SORTING_ON_ATTRIBUTE) {
+            queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);
+        }
+        if (filteringByTrait !== DEFAULT_FILTERING_BY_TRAIT) {
+            queryParams.append(queryParamKeys.filteringByTrait, filteringByTrait);
+        }
         queryParams.append(queryParamKeys.sortOrder, sortOrder);
         queryParams.forEach((value, param) => (queryParamsObj[param] = value));
 
