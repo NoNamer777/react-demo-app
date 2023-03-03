@@ -29,7 +29,6 @@ const FilteringSortingPanelComponent = () => {
             dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
             setSortOrder(queryParams.get(queryParamKeys.sortOrder));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams]);
 
     function handleOnSubmit(submitEvent) {
