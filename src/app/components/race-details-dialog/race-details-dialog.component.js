@@ -30,7 +30,7 @@ const RaceDetailsDialogComponent = ({ race, id }) => {
                         {race.traits.length === 0 && <p>This Race has no Traits...</p>}
                         {race.traits.length > 0 &&
                             race.traits.map((trait) => (
-                                <div>
+                                <div key={trait.name}>
                                     <p className="fw-bold mb-0">{trait.name}</p>
                                     <p>{trait.description}</p>
                                 </div>
