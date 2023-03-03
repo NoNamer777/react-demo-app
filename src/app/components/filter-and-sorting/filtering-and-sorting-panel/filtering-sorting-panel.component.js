@@ -14,11 +14,12 @@ const FilteringSortingPanelComponent = () => {
     const [sortOrders] = useState(SORT_ORDERS);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState(
-        queryParams.has(queryParamKeys.sortingOnAttribute) ? queryParams.get(queryParamKeys.sortingOnAttribute) : ''
+        getInitialValue(queryParamKeys.sortingOnAttribute, '')
     );
-    const [sortOrder, setSortOrder] = useState(
-        queryParams.has(queryParamKeys.sortOrder) ? queryParams.get(queryParamKeys.sortOrder) : 'asc'
-    );
+    const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, 'asc'));
+
+    const [hasChanged, setChanged] = useState(false);
+    const [hasInitialized, setInitialized] = useState(false);
 
     useEffect(() => {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
@@ -29,11 +30,29 @@ const FilteringSortingPanelComponent = () => {
             dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
             setSortOrder(queryParams.get(queryParamKeys.sortOrder));
         }
+        if (!hasInitialized) {
+            setInitialized(true);
+        }
     }, [queryParams]);
+
+    useEffect(() => {
+        if (!hasInitialized) return;
+
+        const initialSortingOnAttribute = getInitialValue(queryParamKeys.sortingOnAttribute, '');
+        const initialSortOrder = getInitialValue(queryParamKeys.sortOrder, 'asc');
+
+        const changeDetected = initialSortingOnAttribute !== sortingOnAttribute || initialSortOrder !== sortOrder;
+
+        if ((changeDetected && !hasChanged) || (!changeDetected && hasChanged)) {
+            setChanged(!hasChanged);
+        }
+    }, [sortOrder, sortingOnAttribute]);
 
     function handleOnSubmit(submitEvent) {
         submitEvent.preventDefault();
         updateQueryParams();
+
+        setChanged(false);
     }
 
     function handleReset() {
@@ -52,6 +71,13 @@ const FilteringSortingPanelComponent = () => {
         queryParams.forEach((value, param) => (queryParamsObj[param] = value));
 
         setQueryParams(queryParamsObj);
+    }
+
+    function getInitialValue(param, fallback) {
+        if (queryParams.has(param)) {
+            return queryParams.get(param);
+        }
+        return fallback;
     }
 
     return (
@@ -104,10 +130,10 @@ const FilteringSortingPanelComponent = () => {
                         <option value=""></option>
                     </select>
                 </div>
-                <button type="reset" className="btn btn-danger" onClick={handleReset}>
+                <button type="reset" className="btn btn-danger" disabled={!hasChanged} onClick={handleReset}>
                     Reset
                 </button>
-                <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas">
+                <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas" disabled={!hasChanged}>
                     Apply
                 </button>
             </form>
