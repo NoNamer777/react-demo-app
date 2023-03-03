@@ -10,7 +10,7 @@ const RaceCardComponent = ({ race }) => {
     }
 
     return (
-        <div className="card shadow-sm bg-body-tertiary text-body-tertiary">
+        <div className="card shadow-sm bg-body-tertiary text-bg-dark">
             <img src={race.imgSrc} alt={race.name + ' image'} className="card-img-top border-bottom race-image" />
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center mb-2">
