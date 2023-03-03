@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { queryParamKeys } from '../../../constants/queryParam';
 import {
+    DEFAULT_FILTERING_BY_TRAIT,
     DEFAULT_SORTING_ON_ATTRIBUTE,
     DEFAULT_SORT_ORDER,
     SORTABLE_ATTRIBUTES,
@@ -17,11 +18,15 @@ const FilteringSortingPanelComponent = () => {
 
     const [sortableAttributes] = useState(SORTABLE_ATTRIBUTES);
     const [sortOrders] = useState(SORT_ORDERS);
+    const { racialTraits: filterableTraits } = useSelector((state) => state.races);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState(
         getInitialValue(queryParamKeys.sortingOnAttribute, DEFAULT_SORTING_ON_ATTRIBUTE)
     );
     const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER));
+    const [filteringByTrait, setFilteringByTrait] = useState(
+        getInitialValue(queryParamKeys.filteringByTrait, DEFAULT_FILTERING_BY_TRAIT)
+    );
 
     const [hasChanged, setChanged] = useState(false);
     const [formIsDefault, setFormIsDefault] = useState(false);
@@ -154,8 +159,18 @@ const FilteringSortingPanelComponent = () => {
                     <label htmlFor="trait-filter-select" className="form-label fw-bold">
                         Filter by Trait:
                     </label>
-                    <select className="form-select" id="trait-filter-select">
+                    <select
+                        className="form-select"
+                        id="trait-filter-select"
+                        value={filteringByTrait}
+                        onChange={(e) => setFilteringByTrait(e.target.value)}
+                    >
                         <option value=""></option>
+                        {filterableTraits.map((filterable) => (
+                            <option value={filterable.value} key={filterable.value}>
+                                {filterable.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <button
