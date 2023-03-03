@@ -46,16 +46,26 @@ const FilteringSortingPanelComponent = () => {
 
         checkFormIsChanged();
         checkFormIsDefault();
-    }, [sortOrder, sortingOnAttribute]);
+    }, [sortOrder, sortingOnAttribute, filteringByTrait]);
 
     function updateStoreAndFormFromRoute() {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
-            dispatch(setSorting({ on: queryParams.get(queryParamKeys.sortingOnAttribute) }));
-            setSortingOnAttribute(queryParams.get(queryParamKeys.sortingOnAttribute));
+            const sortingOnAttributeValue = getInitialValue(
+                queryParamKeys.sortingOnAttribute,
+                DEFAULT_SORTING_ON_ATTRIBUTE
+            );
+            dispatch(setSorting({ on: sortingOnAttributeValue }));
+            setSortingOnAttribute(sortingOnAttributeValue);
         }
         if (queryParams.has(queryParamKeys.sortOrder)) {
-            dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
-            setSortOrder(queryParams.get(queryParamKeys.sortOrder));
+            const sortOrderValue = getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER);
+            dispatch(setSorting({ order: sortOrderValue }));
+            setSortOrder(sortOrderValue);
+        }
+        if (queryParams.has(queryParamKeys.filteringByTrait)) {
+            const filteringByTraitValue = getInitialValue(queryParamKeys.filteringByTrait, DEFAULT_FILTERING_BY_TRAIT);
+            dispatch(setFilters({ trait: filteringByTraitValue }));
+            setFilteringByTrait(filteringByTraitValue);
         }
     }
 
