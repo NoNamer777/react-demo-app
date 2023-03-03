@@ -28,18 +28,12 @@ const FilteringSortingPanelComponent = () => {
     const [hasInitialized, setInitialized] = useState(false);
 
     useEffect(() => {
-        if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
-            dispatch(setSorting({ on: queryParams.get(queryParamKeys.sortingOnAttribute) }));
-            setSortingOnAttribute(queryParams.get(queryParamKeys.sortingOnAttribute));
-        }
-        if (queryParams.has(queryParamKeys.sortOrder)) {
-            dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
-            setSortOrder(queryParams.get(queryParamKeys.sortOrder));
-        }
+        updateStoreAndFormFromRoute();
+        checkFormIsDefault();
+
         if (!hasInitialized) {
             setInitialized(true);
         }
-        checkFormIsDefault();
     }, [queryParams]);
 
     useEffect(() => {
@@ -48,6 +42,17 @@ const FilteringSortingPanelComponent = () => {
         checkFormIsChanged();
         checkFormIsDefault();
     }, [sortOrder, sortingOnAttribute]);
+
+    function updateStoreAndFormFromRoute() {
+        if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
+            dispatch(setSorting({ on: queryParams.get(queryParamKeys.sortingOnAttribute) }));
+            setSortingOnAttribute(queryParams.get(queryParamKeys.sortingOnAttribute));
+        }
+        if (queryParams.has(queryParamKeys.sortOrder)) {
+            dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
+            setSortOrder(queryParams.get(queryParamKeys.sortOrder));
+        }
+    }
 
     function handleOnSubmit(submitEvent) {
         submitEvent.preventDefault();
