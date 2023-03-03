@@ -56,9 +56,9 @@ export const raceSlice = createSlice({
         fetchPagedRaceData: (state, action) => {
             state.isLoading = true;
 
-            const races = [...state.data];
             const start = (action.payload.page - 1) * action.payload.pageSize;
             const end = action.payload.page * action.payload.pageSize;
+            let races = [...state.data];
 
             if (action.payload.sorting) {
                 if (action.payload.sorting.on) {
@@ -66,6 +66,15 @@ export const raceSlice = createSlice({
                 }
                 if (action.payload.sorting.order === 'desc') {
                     races.reverse();
+                }
+            }
+            if (action.payload.filters) {
+                if (action.payload.filters.trait) {
+                    races = races.filter((race) =>
+                        race.traits
+                            .map((trait) => trait.name.toLowerCase().replace(/ /gi, '-').replace(`'`, ''))
+                            .includes(action.payload.filters.trait)
+                    );
                 }
             }
             state.active = races.slice(start, end);

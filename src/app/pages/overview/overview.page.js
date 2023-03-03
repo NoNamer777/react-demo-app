@@ -7,7 +7,7 @@ import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
 const OverviewPage = () => {
     // Select different values from the store to determine when to show what as the component's content
     const { active: races, isLoading, isInitialized } = useSelector((state) => state.races);
-    const { page: currentPage, pageSize, sorting } = useSelector((state) => state.pagination);
+    const { page: currentPage, pageSize, sorting, filters } = useSelector((state) => state.pagination);
 
     const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const OverviewPage = () => {
     // Whenever isInitialized, currentPage, or pageSize changes, fetch the races to show in the overview
     useEffect(() => {
         if (!isInitialized) return;
-        dispatch(fetchPagedRaceData({ page: currentPage, pageSize, sorting }));
+        dispatch(fetchPagedRaceData({ page: currentPage, pageSize, sorting, filters }));
     }, [isInitialized, currentPage, pageSize, sorting]);
 
     return (
