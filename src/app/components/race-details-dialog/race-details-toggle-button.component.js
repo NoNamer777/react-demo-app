@@ -1,14 +1,10 @@
-const RaceDetailsToggleButtonComponent = ({ name }) => {
-    function buildTargetId() {
-        return '#' + name + '-details-modal';
-    }
-
+const RaceDetailsToggleButtonComponent = ({ id }) => {
     return (
         <button
             type="button"
             className="btn btn-sm btn-outline-primary rounded-pill"
             data-bs-toggle="modal"
-            data-bs-target={buildTargetId()}
+            data-bs-target={'#' + id}
         >
             Details
         </button>
