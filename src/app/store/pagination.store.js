@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DEFAULT_SORTING_ON_ATTRIBUTE, DEFAULT_SORT_ORDER } from '../constants/sorting';
+import { DEFAULT_FILTERING_BY_TRAIT, DEFAULT_SORTING_ON_ATTRIBUTE, DEFAULT_SORT_ORDER } from '../constants/sorting';
 
 export const paginationSlice = createSlice({
     name: 'pagination',
@@ -11,11 +11,20 @@ export const paginationSlice = createSlice({
             on: DEFAULT_SORTING_ON_ATTRIBUTE,
             order: DEFAULT_SORT_ORDER,
         },
+        filters: {
+            trait: DEFAULT_FILTERING_BY_TRAIT,
+        },
     },
     reducers: {
         setSorting: (state, action) => {
             state.sorting = {
                 ...state.sorting,
+                ...action.payload,
+            };
+        },
+        setFilters: (state, action) => {
+            state.filters = {
+                ...state.filters,
                 ...action.payload,
             };
         },
@@ -28,5 +37,6 @@ export const paginationSlice = createSlice({
     },
 });
 
+export const { setTotalPages, setSorting, setFilters, goToPage } = paginationSlice.actions;
 
 export default paginationSlice.reducer;
