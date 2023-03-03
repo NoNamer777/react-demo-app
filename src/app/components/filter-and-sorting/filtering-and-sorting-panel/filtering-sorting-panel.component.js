@@ -24,6 +24,7 @@ const FilteringSortingPanelComponent = () => {
     const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER));
 
     const [hasChanged, setChanged] = useState(false);
+    const [formIsDefault, setFormIsDefault] = useState(false);
     const [hasInitialized, setInitialized] = useState(false);
 
     useEffect(() => {
@@ -38,12 +39,14 @@ const FilteringSortingPanelComponent = () => {
         if (!hasInitialized) {
             setInitialized(true);
         }
+        checkFormIsDefault();
     }, [queryParams]);
 
     useEffect(() => {
         if (!hasInitialized) return;
 
         checkFormIsChanged();
+        checkFormIsDefault();
     }, [sortOrder, sortingOnAttribute]);
 
     function handleOnSubmit(submitEvent) {
@@ -51,6 +54,14 @@ const FilteringSortingPanelComponent = () => {
         updateQueryParams();
 
         setChanged(false);
+    }
+
+    function checkFormIsDefault() {
+        const isFormDefault = sortOrder === DEFAULT_SORT_ORDER && sortingOnAttribute === DEFAULT_SORTING_ON_ATTRIBUTE;
+
+        if ((isFormDefault && !formIsDefault) || (!isFormDefault && formIsDefault)) {
+            setFormIsDefault(!formIsDefault);
+        }
     }
 
     function checkFormIsChanged() {
@@ -142,7 +153,12 @@ const FilteringSortingPanelComponent = () => {
                         <option value=""></option>
                     </select>
                 </div>
-                <button type="reset" className="btn btn-danger" disabled={!hasChanged} onClick={handleReset}>
+                <button
+                    type="reset"
+                    className="btn btn-danger"
+                    disabled={!hasChanged && formIsDefault}
+                    onClick={handleReset}
+                >
                     Reset
                 </button>
                 <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas" disabled={!hasChanged}>
