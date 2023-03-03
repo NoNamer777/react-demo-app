@@ -13,7 +13,7 @@ const PaginationComponent = () => {
 
     useEffect(() => {
         dispatch(setTotalPages(data.length));
-    }, [data, dispatch]);
+    }, [data]);
 
     useEffect(() => {
         /** Updates the pagination store whenever the query params in the route updates */
@@ -28,7 +28,7 @@ const PaginationComponent = () => {
         }
 
         updatePageFromRoute();
-    }, [currentPage, dispatch, searchParams]);
+    }, [currentPage, searchParams]);
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
