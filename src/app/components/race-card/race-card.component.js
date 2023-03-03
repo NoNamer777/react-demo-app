@@ -1,3 +1,5 @@
+import { createPortal } from 'react-dom';
+import RaceDetailsDialogComponent from '../race-details-dialog/race-details-dialog.component';
 import RaceDetailsToggleButtonComponent from '../race-details-dialog/race-details-toggle-button.component';
 import './race-card.component.scss';
 
@@ -24,6 +26,10 @@ const RaceCardComponent = ({ race }) => {
                     <span>{race.speed}</span>
                 </p>
             </div>
+            {createPortal(
+                <RaceDetailsDialogComponent id={buildModalId()} race={race} />,
+                document.body.querySelector('.modals')
+            )}
         </div>
     );
 };

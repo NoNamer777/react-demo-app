@@ -20,6 +20,7 @@ root.render(
         {/* Make the store available for the whole application */}
         <Provider store={store}>
             <RouterProvider router={router} />
+            <div className="modals"></div>
         </Provider>
     </React.StrictMode>
 );
