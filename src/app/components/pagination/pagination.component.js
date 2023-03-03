@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { goToPage, setTotalPages } from '../../store/pagination.store';
+import { goToPage, setTotalPages } from '../../store';
 
 /** Handles showing the different slices of content of the application */
 const PaginationComponent = () => {

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { queryParamKeys } from '../../../constants/queryParam';
 import {
     DEFAULT_FILTERING_BY_TRAIT,
     DEFAULT_SORTING_ON_ATTRIBUTE,
     DEFAULT_SORT_ORDER,
+    queryParamKeys,
     SORTABLE_ATTRIBUTES,
     SORT_ORDERS,
-} from '../../../constants/sorting';
-import { setFilters, setSorting } from '../../../store/pagination.store';
+} from '../../../constants';
+import { setFilters, setSorting } from '../../../store';
 
 /** A side panel which allows a User to set the sorting, or add a filter on the data */
 const FilteringSortingPanelComponent = () => {

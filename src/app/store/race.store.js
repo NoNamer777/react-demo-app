@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SIZE_ORDER } from '../constants/race';
+import { SIZE_ORDER } from '../constants';
 
 /** Handles sorting the data by a particular attribute. */
 function sortRaceByAttribute(race1, race2, attribute) {
