@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { DEFAULT_SORTING_ON_ATTRIBUTE, DEFAULT_SORT_ORDER } from '../constants/sorting';
 
 export const paginationSlice = createSlice({
     name: 'pagination',
@@ -7,8 +8,8 @@ export const paginationSlice = createSlice({
         pageSize: 5,
         totalPages: undefined,
         sorting: {
-            on: '',
-            order: 'asc',
+            on: DEFAULT_SORTING_ON_ATTRIBUTE,
+            order: DEFAULT_SORT_ORDER,
         },
     },
     reducers: {

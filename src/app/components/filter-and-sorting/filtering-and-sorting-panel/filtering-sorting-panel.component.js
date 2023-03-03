@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { queryParamKeys } from '../../../constants/queryParam';
-import { SORTABLE_ATTRIBUTES, SORT_ORDERS } from '../../../constants/sorting';
+import {
+    DEFAULT_SORTING_ON_ATTRIBUTE,
+    DEFAULT_SORT_ORDER,
+    SORTABLE_ATTRIBUTES,
+    SORT_ORDERS,
+} from '../../../constants/sorting';
 import { setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
@@ -14,11 +19,13 @@ const FilteringSortingPanelComponent = () => {
     const [sortOrders] = useState(SORT_ORDERS);
 
     const [sortingOnAttribute, setSortingOnAttribute] = useState(
-        queryParams.has(queryParamKeys.sortingOnAttribute) ? queryParams.get(queryParamKeys.sortingOnAttribute) : ''
+        getInitialValue(queryParamKeys.sortingOnAttribute, DEFAULT_SORTING_ON_ATTRIBUTE)
     );
-    const [sortOrder, setSortOrder] = useState(
-        queryParams.has(queryParamKeys.sortOrder) ? queryParams.get(queryParamKeys.sortOrder) : 'asc'
-    );
+    const [sortOrder, setSortOrder] = useState(getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER));
+
+    const [hasChanged, setChanged] = useState(false);
+    const [formIsDefault, setFormIsDefault] = useState(false);
+    const [hasInitialized, setInitialized] = useState(false);
 
     useEffect(() => {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
@@ -29,19 +36,54 @@ const FilteringSortingPanelComponent = () => {
             dispatch(setSorting({ order: queryParams.get(queryParamKeys.sortOrder) }));
             setSortOrder(queryParams.get(queryParamKeys.sortOrder));
         }
+        if (!hasInitialized) {
+            setInitialized(true);
+        }
+        checkFormIsDefault();
     }, [queryParams]);
+
+    useEffect(() => {
+        if (!hasInitialized) return;
+
+        checkFormIsChanged();
+        checkFormIsDefault();
+    }, [sortOrder, sortingOnAttribute]);
 
     function handleOnSubmit(submitEvent) {
         submitEvent.preventDefault();
         updateQueryParams();
+
+        setChanged(false);
+    }
+
+    function checkFormIsDefault() {
+        const isFormDefault = sortOrder === DEFAULT_SORT_ORDER && sortingOnAttribute === DEFAULT_SORTING_ON_ATTRIBUTE;
+
+        if ((isFormDefault && !formIsDefault) || (!isFormDefault && formIsDefault)) {
+            setFormIsDefault(!formIsDefault);
+        }
+    }
+
+    function checkFormIsChanged() {
+        const initialSortingOnAttribute = getInitialValue(
+            queryParamKeys.sortingOnAttribute,
+            DEFAULT_SORTING_ON_ATTRIBUTE
+        );
+        const initialSortOrder = getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER);
+
+        const changeDetected = initialSortingOnAttribute !== sortingOnAttribute || initialSortOrder !== sortOrder;
+
+        if ((changeDetected && !hasChanged) || (!changeDetected && hasChanged)) {
+            setChanged(!hasChanged);
+        }
     }
 
     function handleReset() {
         setQueryParams({ page: 1 });
 
-        dispatch(setSorting({ on: '', order: 'asc' }));
-        setSortingOnAttribute('');
-        setSortOrder('asc');
+        dispatch(setSorting({ on: DEFAULT_SORTING_ON_ATTRIBUTE, order: DEFAULT_SORT_ORDER }));
+        setSortingOnAttribute(DEFAULT_SORTING_ON_ATTRIBUTE);
+        setSortOrder(DEFAULT_SORT_ORDER);
     }
 
     function updateQueryParams() {
@@ -52,6 +94,13 @@ const FilteringSortingPanelComponent = () => {
         queryParams.forEach((value, param) => (queryParamsObj[param] = value));
 
         setQueryParams(queryParamsObj);
+    }
+
+    function getInitialValue(param, fallback) {
+        if (queryParams.has(param)) {
+            return queryParams.get(param);
+        }
+        return fallback;
     }
 
     return (
@@ -104,10 +153,15 @@ const FilteringSortingPanelComponent = () => {
                         <option value=""></option>
                     </select>
                 </div>
-                <button type="reset" className="btn btn-danger" onClick={handleReset}>
+                <button
+                    type="reset"
+                    className="btn btn-danger"
+                    disabled={!hasChanged && formIsDefault}
+                    onClick={handleReset}
+                >
                     Reset
                 </button>
-                <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas">
+                <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas" disabled={!hasChanged}>
                     Apply
                 </button>
             </form>
