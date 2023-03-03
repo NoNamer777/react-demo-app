@@ -7,7 +7,7 @@ const FooterComponent = () => {
                 <Link to={process.env.PUBLIC_URL} className="mb-3 mx-2 mb-md-0 text-muted text-decoration-none lh-1">
                     <img src="assets/images/logo.png" alt="logo" className="logo" />
                 </Link>
-                <span className="mb-3 mb-md-0 text-muted">© 2023 DnD Mapp</span>
+                <span className="text-muted">© 2023 DnD Mapp</span>
             </div>
         </footer>
     );

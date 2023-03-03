@@ -46,6 +46,48 @@ const PaginationComponent = () => {
         return route;
     }
 
+    function renderPageLabel(pageNumber) {
+        if (pageNumber === 1) {
+            return 'First';
+        }
+        if (pageNumber === maxPages) {
+            return 'Last';
+        }
+        return `${pageNumber}`;
+    }
+
+    /** Make an integer range up to the total number of pages */
+    function pageLinks() {
+        // Make an array with all the page numbers
+        let pageLinks = [...Array(maxPages).keys()].map((i) => ({
+            number: i + 1,
+            label: renderPageLabel(i + 1),
+        }));
+        const indexActiveLink = pageLinks.indexOf(pageLinks.find((page) => page.number === currentPage));
+
+        // Determine a more scoped array of page numbers, based on the currently active page
+        let start = indexActiveLink - 1 < 0 ? 0 : indexActiveLink - 1;
+        let end = indexActiveLink + 2 > pageLinks.length - 1 ? pageLinks.length - 1 : indexActiveLink + 2;
+
+        // Make sure there's always at least 3 different pages available to go to
+        if (end >= pageLinks.length - 1) {
+            start = end - 3;
+        }
+        if (start < 1) {
+            end = start + 4;
+        }
+        pageLinks = pageLinks.slice(start, end);
+
+        // Always add the first and last pages for easy access
+        if (!pageLinks.find((page) => page.number === 1)) {
+            pageLinks.unshift({ number: 1, label: 'First' });
+        }
+        if (!pageLinks.find((page) => page.number === maxPages)) {
+            pageLinks.push({ number: maxPages, label: 'Last' });
+        }
+        return pageLinks;
+    }
+
     return (
         <ul className="pagination mb-0">
             {/* Disable the previous page link when on the first page */}
@@ -54,18 +96,14 @@ const PaginationComponent = () => {
                     Previous
                 </Link>
             </li>
-            {/* Make an integer range up to the total number of pages */}
-            {[...Array(maxPages).keys()]
-                // Shift the integer rage to start the range at 1
-                .map((i) => i + 1)
-                .map((pageNumber) => (
-                    // Render a list item element for every integer in the integer rage
-                    <li className={'page-item ' + (pageNumber === currentPage ? 'active' : '')} key={pageNumber}>
-                        <Link to={buildRoute(pageNumber)} className="page-link">
-                            {pageNumber}
-                        </Link>
-                    </li>
-                ))}
+            {pageLinks().map((page, index) => (
+                // Render a list item element for every integer in the integer rage
+                <li className={'page-item ' + (page.number === currentPage ? 'active' : '')} key={index}>
+                    <Link to={buildRoute(page.number)} className="page-link">
+                        {page.label}
+                    </Link>
+                </li>
+            ))}
             {/* Disable the next page link when on the last page */}
             <li className={'page-item ' + (currentPage === maxPages ? 'disabled' : '')}>
                 <Link to={buildRoute(currentPage === maxPages ? maxPages : currentPage + 1)} className="page-link">

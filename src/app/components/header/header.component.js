@@ -4,7 +4,7 @@ import PaginationComponent from '../pagination/pagination.component';
 
 const HeaderComponent = () => {
     return (
-        <header className="flex-grow-0 flex-shrink-0">
+        <header className="flex-grow-0 flex-shrink-0 sticky-top">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <Link to={process.env.PUBLIC_URL} className="navbar-brand">
@@ -20,7 +20,7 @@ const HeaderComponent = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul className="navbar-nav me-auto">
                             <li className="nav-item">
                                 <NavLink to={process.env.PUBLIC_URL + '/overview'} className="nav-link">
                                     Overview
