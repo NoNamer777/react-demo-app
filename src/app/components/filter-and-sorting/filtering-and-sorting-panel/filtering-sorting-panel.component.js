@@ -9,7 +9,7 @@ import {
     SORTABLE_ATTRIBUTES,
     SORT_ORDERS,
 } from '../../../constants/sorting';
-import { setSorting } from '../../../store/pagination.store';
+import { setFilters, setSorting } from '../../../store/pagination.store';
 
 const FilteringSortingPanelComponent = () => {
     const dispatch = useDispatch();
@@ -77,7 +77,10 @@ const FilteringSortingPanelComponent = () => {
     }
 
     function checkFormIsDefault() {
-        const isFormDefault = sortOrder === DEFAULT_SORT_ORDER && sortingOnAttribute === DEFAULT_SORTING_ON_ATTRIBUTE;
+        const isFormDefault =
+            sortOrder === DEFAULT_SORT_ORDER &&
+            sortingOnAttribute === DEFAULT_SORTING_ON_ATTRIBUTE &&
+            filteringByTrait === DEFAULT_FILTERING_BY_TRAIT;
 
         if ((isFormDefault && !formIsDefault) || (!isFormDefault && formIsDefault)) {
             setFormIsDefault(!formIsDefault);
@@ -90,8 +93,12 @@ const FilteringSortingPanelComponent = () => {
             DEFAULT_SORTING_ON_ATTRIBUTE
         );
         const initialSortOrder = getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER);
+        const initialFilteringByTrait = getInitialValue(queryParamKeys.filteringByTrait, DEFAULT_FILTERING_BY_TRAIT);
 
-        const changeDetected = initialSortingOnAttribute !== sortingOnAttribute || initialSortOrder !== sortOrder;
+        const changeDetected =
+            initialSortingOnAttribute !== sortingOnAttribute ||
+            initialSortOrder !== sortOrder ||
+            initialFilteringByTrait !== filteringByTrait;
 
         if ((changeDetected && !hasChanged) || (!changeDetected && hasChanged)) {
             setChanged(!hasChanged);
