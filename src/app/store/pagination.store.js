@@ -6,8 +6,18 @@ export const paginationSlice = createSlice({
         page: 1,
         pageSize: 5,
         totalPages: undefined,
+        sorting: {
+            on: '',
+            order: 'asc',
+        },
     },
     reducers: {
+        setSorting: (state, action) => {
+            state.sorting = {
+                ...state.sorting,
+                ...action.payload,
+            };
+        },
         setTotalPages: (state, action) => {
             state.totalPages = Math.ceil(action.payload / 5);
         },
@@ -25,6 +35,6 @@ export const paginationSlice = createSlice({
     },
 });
 
-export const { setTotalPages, gotToPreviousPage, goToNextPage, goToPage } = paginationSlice.actions;
+export const { setTotalPages, setSorting, gotToPreviousPage, goToNextPage, goToPage } = paginationSlice.actions;
 
 export default paginationSlice.reducer;

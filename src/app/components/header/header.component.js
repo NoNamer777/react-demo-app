@@ -1,13 +1,13 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, NavLink } from 'react-router-dom';
-import PaginationComponent from './pagination/pagination.component';
+import FilterButtonComponent from '../filter-and-sorting/filter-button/filter-button.component';
+import PaginationComponent from '../pagination/pagination.component';
 
 const HeaderComponent = () => {
     return (
         <header className="flex-grow-0 flex-shrink-0 sticky-top">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <Link to="/" className="navbar-brand">
+                    <Link to={process.env.PUBLIC_URL} className="navbar-brand">
                         <img src="assets/images/logo.png" alt="logo" className="logo" />
                         DnD Mapp - Races
                     </Link>
@@ -22,21 +22,14 @@ const HeaderComponent = () => {
                     <div className="collapse navbar-collapse" id="navbar-supported-content">
                         <ul className="navbar-nav me-auto">
                             <li className="nav-item">
-                                <NavLink to="/overview" className="nav-link">
+                                <NavLink to={process.env.PUBLIC_URL + '/overview'} className="nav-link">
                                     Overview
                                 </NavLink>
                             </li>
                         </ul>
-                        <div className="d-none d-lg-flex">
+                        <div className="d-none d-lg-flex gap-2 align-items-center">
                             <PaginationComponent />
-                            <button
-                                type="button"
-                                className="btn btn-primary ms-2"
-                                data-bs-toggle="offcanvas"
-                                data-bs-target="#filter-sorting-panel"
-                            >
-                                <FontAwesomeIcon icon="filter" />
-                            </button>
+                            <FilterButtonComponent />
                         </div>
                     </div>
                 </div>

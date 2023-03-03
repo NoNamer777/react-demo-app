@@ -16,7 +16,7 @@ npm install
 This project is working with [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/).
 To make your editor work with these tools, please check [here](https://prettier.io/docs/en/editors.html) to make sure
 Prettier formats your files after every save. For ESLint, check
-[here](https://eslint.org/docs/latest/use/integrations#editors) for more info about configuring your editor 
+[here](https://eslint.org/docs/latest/use/integrations#editors) for more info about configuring your editor
 
 #### Webstorm
 
@@ -53,6 +53,7 @@ PUBLIC_URL=/
 # Outputs the result of the `build` script to the target folder determined below
 BUILD_PATH=dist/react-demo-app
 ```
+
 For more information about these environment variables, please refer to the
 [advanced configuration](https://create-react-app.dev/docs/advanced-configuration/) section.
 
@@ -61,7 +62,7 @@ For more information about these environment variables, please refer to the
 In the project directory, you can run the following scripts:
 
 | Script                 | Description                                                                                                                                                                                                                                                                                                                                               |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run start`        | Runs the app in the development mode. Open http://localhost:4200/ to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.                                                                                                                                                                |
 | `npm run test`         | Launches the test runner in the interactive watch mode. See the section about [running tests](https://create-react-app.dev/docs/running-tests/) for more information.                                                                                                                                                                                     |
 | `npm run build`        | Builds the app for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed! See the section about [deployment](https://create-react-app.dev/docs/deployment/) for more information. |

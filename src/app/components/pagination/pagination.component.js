@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { goToPage, setTotalPages } from '../../../store/pagination.store';
+import { goToPage, setTotalPages } from '../../store/pagination.store';
 
 const PaginationComponent = () => {
     const { data } = useSelector((state) => state.races);
@@ -32,7 +32,18 @@ const PaginationComponent = () => {
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
-        return '/overview?page=' + pageNumber;
+        let route =
+            process.env.PUBLIC_URL +
+            '/overview?' +
+            searchParams.toString().replace(/page=[(0-9)*]/, 'page=' + pageNumber);
+
+        if (!route.match(/page=[(0-9)*]/)) {
+            if (!route.endsWith('?')) {
+                route += '&';
+            }
+            route += 'page=' + pageNumber;
+        }
+        return route;
     }
 
     function renderPageLabel(pageNumber) {

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { SIZE_ORDER } from '../constants/race';
 
 async function fetchRacesByName(raceNames) {
     const races = [];
@@ -10,20 +11,32 @@ async function fetchRacesByName(raceNames) {
     return races;
 }
 
+function sortRaceByAttribute(race1, race2, attribute) {
+    switch (attribute) {
+        case 'name':
+            return race1.name.localeCompare(race2.name);
+        case 'speed':
+            const speedCompare = race1.speed - race2.speed;
+
+            if (speedCompare === 0) {
+                return race1.name.localeCompare(race2.name);
+            }
+            return speedCompare;
+        case 'size':
+            const sizeCompare = SIZE_ORDER[race1.size.toLowerCase()] - SIZE_ORDER[race2.size.toLowerCase()];
+
+            if (sizeCompare === 0) {
+                return race1.name.localeCompare(race2.name);
+            }
+            return sizeCompare;
+        default:
+            return 1;
+    }
+}
+
 // Enables use of asynchronous code
 export const fetchRaceData = createAsyncThunk('races/fetchData', async () => {
     const raceNames = await (await fetch('assets/data/races.json')).json();
-
-    return await fetchRacesByName(raceNames);
-});
-
-export const fetchPagedRaceData = createAsyncThunk('races/fetchDataPage', async (payload) => {
-    let raceNames = await (await fetch('assets/data/races.json')).json();
-
-    const start = (payload.page - 1) * payload.pageSize;
-    const end = payload.page * payload.pageSize;
-
-    raceNames = raceNames.slice(start, end);
 
     return await fetchRacesByName(raceNames);
 });
@@ -38,7 +51,26 @@ export const raceSlice = createSlice({
         isLoading: false,
         isInitialized: false,
     },
-    reducers: {},
+    reducers: {
+        fetchPagedRaceData: (state, action) => {
+            state.isLoading = true;
+
+            const races = [...state.data];
+            const start = (action.payload.page - 1) * action.payload.pageSize;
+            const end = action.payload.page * action.payload.pageSize;
+
+            if (action.payload.sorting) {
+                if (action.payload.sorting.on) {
+                    races.sort((r1, r2) => sortRaceByAttribute(r1, r2, action.payload.sorting.on));
+                }
+                if (action.payload.sorting.order === 'desc') {
+                    races.reverse();
+                }
+            }
+            state.active = races.slice(start, end);
+            state.isLoading = false;
+        },
+    },
     extraReducers: (builder) => {
         builder
             // Upon calling the initialization process, we'll reflect in the store state that the data is loading
@@ -54,18 +86,10 @@ export const raceSlice = createSlice({
                 if (!state.isInitialized) {
                     state.isInitialized = true;
                 }
-            })
-            .addCase(fetchPagedRaceData.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(fetchPagedRaceData.fulfilled, (state, action) => {
-                state.active = action.payload;
-                state.isLoading = false;
             });
     },
 });
 
-// eslint-disable-next-line no-empty-pattern
-export const {} = raceSlice.actions;
+export const { fetchPagedRaceData } = raceSlice.actions;
 
 export default raceSlice.reducer;

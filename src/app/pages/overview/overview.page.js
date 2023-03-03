@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FilteringPanelComponent from '../../components/filtering-panel/filtering-panel.component';
+import FilteringSortingPanelComponent from '../../components/filter-and-sorting/filtering-and-sorting-panel/filtering-sorting-panel.component';
 import RaceCardComponent from '../../components/race-card/race-card.component';
 import { fetchPagedRaceData, fetchRaceData } from '../../store/race.store';
 import './overview.page.scss';
@@ -9,20 +8,22 @@ import './overview.page.scss';
 const OverviewPage = () => {
     // Select different values from the store to determine when to show what as the component's content
     const { active: races, isLoading, isInitialized } = useSelector((state) => state.races);
-    const { page: currentPage, pageSize } = useSelector((state) => state.pagination);
+    const { page: currentPage, pageSize, sorting } = useSelector((state) => state.pagination);
 
     const dispatch = useDispatch();
 
     // Start the data initialization process when the component is created
     useEffect(() => {
         dispatch(fetchRaceData());
-    }, [dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Whenever isInitialized, currentPage, or pageSize changes, fetch the races to show in the overview
     useEffect(() => {
         if (!isInitialized) return;
-        dispatch(fetchPagedRaceData({ page: currentPage, pageSize: pageSize }));
-    }, [dispatch, isInitialized, currentPage, pageSize]);
+        dispatch(fetchPagedRaceData({ page: currentPage, pageSize, sorting }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isInitialized, currentPage, pageSize, sorting]);
 
     return (
         <section>
@@ -48,15 +49,7 @@ const OverviewPage = () => {
                 {/* Show a spinner when the data is not yet initialized or is loading */}
                 {(isLoading || !isInitialized) && <div className="spinner-border"></div>}
             </div>
-            <FilteringPanelComponent />
-            <button
-                type="button"
-                className="btn btn-primary position-fixed filter-btn d-lg-none"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#filter-sorting-panel"
-            >
-                <FontAwesomeIcon icon="filter" />
-            </button>
+            <FilteringSortingPanelComponent />
         </section>
     );
 };

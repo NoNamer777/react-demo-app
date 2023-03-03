@@ -10,7 +10,7 @@ import store from './app/store/store-provider';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
-library.add(faFilter);
+library.add(...[faFilter]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
