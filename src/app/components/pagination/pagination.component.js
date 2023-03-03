@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { goToPage, setTotalPages } from '../../store/pagination.store';
 
 const PaginationComponent = () => {
-    const { data } = useSelector((state) => state.races);
+    const { filtered: data } = useSelector((state) => state.races);
     const { page: currentPage, totalPages: maxPages } = useSelector((state) => state.pagination);
 
     const [searchParams] = useSearchParams();
