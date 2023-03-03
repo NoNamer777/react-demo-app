@@ -102,8 +102,10 @@ const FilteringSortingPanelComponent = () => {
         setQueryParams({ page: 1 });
 
         dispatch(setSorting({ on: DEFAULT_SORTING_ON_ATTRIBUTE, order: DEFAULT_SORT_ORDER }));
+        dispatch(setFilters({ trait: DEFAULT_FILTERING_BY_TRAIT }));
         setSortingOnAttribute(DEFAULT_SORTING_ON_ATTRIBUTE);
         setSortOrder(DEFAULT_SORT_ORDER);
+        setFilteringByTrait(DEFAULT_FILTERING_BY_TRAIT);
     }
 
     function updateQueryParams() {
