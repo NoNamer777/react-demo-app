@@ -43,14 +43,7 @@ const FilteringSortingPanelComponent = () => {
     useEffect(() => {
         if (!hasInitialized) return;
 
-        const initialSortingOnAttribute = getInitialValue(queryParamKeys.sortingOnAttribute, '');
-        const initialSortOrder = getInitialValue(queryParamKeys.sortOrder, 'asc');
-
-        const changeDetected = initialSortingOnAttribute !== sortingOnAttribute || initialSortOrder !== sortOrder;
-
-        if ((changeDetected && !hasChanged) || (!changeDetected && hasChanged)) {
-            setChanged(!hasChanged);
-        }
+        checkFormIsChanged();
     }, [sortOrder, sortingOnAttribute]);
 
     function handleOnSubmit(submitEvent) {
@@ -58,6 +51,20 @@ const FilteringSortingPanelComponent = () => {
         updateQueryParams();
 
         setChanged(false);
+    }
+
+    function checkFormIsChanged() {
+        const initialSortingOnAttribute = getInitialValue(
+            queryParamKeys.sortingOnAttribute,
+            DEFAULT_SORTING_ON_ATTRIBUTE
+        );
+        const initialSortOrder = getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER);
+
+        const changeDetected = initialSortingOnAttribute !== sortingOnAttribute || initialSortOrder !== sortOrder;
+
+        if ((changeDetected && !hasChanged) || (!changeDetected && hasChanged)) {
+            setChanged(!hasChanged);
+        }
     }
 
     function handleReset() {
