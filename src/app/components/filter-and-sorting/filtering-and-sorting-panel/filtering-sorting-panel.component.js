@@ -157,7 +157,12 @@ const FilteringSortingPanelComponent = () => {
         <div className="offcanvas offcanvas-end" tabIndex="-1" id="filtering-sorting-panel">
             <div className="offcanvas-header border-bottom">
                 <h5 className="offcanvas-title">Filtering and Sorting</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button
+                    type="button"
+                    className="btn-close btn-close-white"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                ></button>
             </div>
             <form className="offcanvas-body d-flex flex-column gap-3" onSubmit={handleOnSubmit}>
                 <div>
