@@ -4,7 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { goToPage, setTotalPages } from '../../store/pagination.store';
 
 const PaginationComponent = () => {
-    const { data } = useSelector((state) => state.races);
+    const { filtered: data } = useSelector((state) => state.races);
     const { page: currentPage, totalPages: maxPages } = useSelector((state) => state.pagination);
 
     const [searchParams] = useSearchParams();
@@ -13,7 +13,7 @@ const PaginationComponent = () => {
 
     useEffect(() => {
         dispatch(setTotalPages(data.length));
-    }, [data, dispatch]);
+    }, [data]);
 
     useEffect(() => {
         /** Updates the pagination store whenever the query params in the route updates */
@@ -28,7 +28,7 @@ const PaginationComponent = () => {
         }
 
         updatePageFromRoute();
-    }, [currentPage, dispatch, searchParams]);
+    }, [currentPage, searchParams]);
 
     /** Dynamically builds a route */
     function buildRoute(pageNumber) {
@@ -79,10 +79,10 @@ const PaginationComponent = () => {
         pageLinks = pageLinks.slice(start, end);
 
         // Always add the first and last pages for easy access
-        if (!pageLinks.find((page) => page.number === 1)) {
+        if (!pageLinks.find((page) => page.label === 'First')) {
             pageLinks.unshift({ number: 1, label: 'First' });
         }
-        if (!pageLinks.find((page) => page.number === maxPages)) {
+        if (!pageLinks.find((page) => page.label === 'Last')) {
             pageLinks.push({ number: maxPages, label: 'Last' });
         }
         return pageLinks;

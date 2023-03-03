@@ -116,7 +116,7 @@ const FilteringSortingPanelComponent = () => {
     }
 
     function updateQueryParams() {
-        const queryParamsObj = {};
+        const queryParamsObj = { page: 1 };
 
         if (sortingOnAttribute !== DEFAULT_SORTING_ON_ATTRIBUTE) {
             queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);

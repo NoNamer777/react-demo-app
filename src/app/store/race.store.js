@@ -47,6 +47,7 @@ export const raceSlice = createSlice({
     // Sets the initial values of this part of the store
     initialState: {
         data: [],
+        filtered: [],
         active: [],
         isLoading: false,
         isInitialized: false,
@@ -77,7 +78,8 @@ export const raceSlice = createSlice({
                     );
                 }
             }
-            state.active = races.slice(start, end);
+            state.filtered = [...races];
+            state.active = state.filtered.slice(start, end);
             state.isLoading = false;
         },
     },
