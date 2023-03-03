@@ -21,12 +21,14 @@ const PaginationComponent = () => {
 
     /** Updates the pagination store whenever the query params in the route update */
     function updatePageFromRoute() {
-        if (!searchParams.has('page')) return;
+        if (searchParams.has('page')) {
+            const pageNumberFromRoute = parseInt(searchParams.get('page'));
 
-        const pageNumberFromRoute = parseInt(searchParams.get('page'));
-
-        if (pageNumberFromRoute !== currentPage) {
-            dispatch(goToPage(pageNumberFromRoute));
+            if (pageNumberFromRoute !== currentPage) {
+                dispatch(goToPage(pageNumberFromRoute));
+            }
+        } else if (currentPage !== 1) {
+            dispatch(goToPage(1));
         }
     }
 

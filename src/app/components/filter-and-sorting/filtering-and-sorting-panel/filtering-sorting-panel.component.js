@@ -63,16 +63,25 @@ const FilteringSortingPanelComponent = () => {
             );
             dispatch(setSorting({ on: sortingOnAttributeValue }));
             setSortingOnAttribute(sortingOnAttributeValue);
+        } else if (sortingOnAttribute !== DEFAULT_SORTING_ON_ATTRIBUTE) {
+            dispatch(setSorting({ on: DEFAULT_SORTING_ON_ATTRIBUTE }));
+            setSortingOnAttribute(DEFAULT_SORTING_ON_ATTRIBUTE);
         }
         if (queryParams.has(queryParamKeys.sortOrder)) {
             const sortOrderValue = getInitialValue(queryParamKeys.sortOrder, DEFAULT_SORT_ORDER);
             dispatch(setSorting({ order: sortOrderValue }));
             setSortOrder(sortOrderValue);
+        } else if (sortOrder !== DEFAULT_SORT_ORDER) {
+            dispatch(setSorting({ order: DEFAULT_SORT_ORDER }));
+            setSortOrder(DEFAULT_SORT_ORDER);
         }
         if (queryParams.has(queryParamKeys.filteringByTrait)) {
             const filteringByTraitValue = getInitialValue(queryParamKeys.filteringByTrait, DEFAULT_FILTERING_BY_TRAIT);
             dispatch(setFilters({ trait: filteringByTraitValue }));
             setFilteringByTrait(filteringByTraitValue);
+        } else if (filteringByTrait !== DEFAULT_FILTERING_BY_TRAIT) {
+            dispatch(setFilters({ trait: DEFAULT_FILTERING_BY_TRAIT }));
+            setFilteringByTrait(DEFAULT_FILTERING_BY_TRAIT);
         }
     }
 
