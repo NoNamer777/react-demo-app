@@ -149,7 +149,11 @@ const FilteringSortingPanelComponent = () => {
             queryParams.append(queryParamKeys.filteringByTrait, filteringByTrait);
         }
         queryParams.append(queryParamKeys.sortOrder, sortOrder);
-        queryParams.forEach((value, param) => (queryParamsObj[param] = value));
+        queryParams.forEach((value, param) => {
+            if (queryParamsObj[param]) return;
+
+            queryParamsObj[param] = value;
+        });
 
         setQueryParams(queryParamsObj);
     }
