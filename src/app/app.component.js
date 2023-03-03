@@ -14,7 +14,8 @@ const AppComponent = () => {
     const titlePrefix = 'DnD Mapp - Races';
 
     useEffect(() => {
-        document.title = titlePrefix + routeTitleMap[location.pathname];
+        const pageTitle = routeTitleMap[location.pathname];
+        document.title = titlePrefix + (!pageTitle ? '' : pageTitle);
     }, [location.pathname]);
 
     return (
