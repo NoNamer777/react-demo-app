@@ -50,6 +50,7 @@ export const raceSlice = createSlice({
         active: [],
         isLoading: false,
         isInitialized: false,
+        racialTraits: [],
     },
     reducers: {
         fetchPagedRaceData: (state, action) => {
@@ -82,6 +83,17 @@ export const raceSlice = createSlice({
             .addCase(fetchRaceData.fulfilled, (state, action) => {
                 state.data = [...action.payload];
                 state.isLoading = false;
+
+                state.racialTraits = state.data
+                    .flatMap((race) => race.traits)
+                    .map((trait) => ({
+                        value: trait.name.replace(/ /gi, '-').replace(`'`, '').toLowerCase(),
+                        label: trait.name,
+                    }))
+                    .sort((t1, t2) => t1.label.localeCompare(t2.label))
+                    .filter(
+                        (trait, position, self) => position === self.findIndex((entry) => entry.value === trait.value)
+                    );
 
                 if (!state.isInitialized) {
                     state.isInitialized = true;
