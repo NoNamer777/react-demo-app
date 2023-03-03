@@ -1,3 +1,4 @@
+import RaceDetailsToggleButtonComponent from '../race-details-dialog/race-details-toggle-button.component';
 import './race-card.component.scss';
 
 /** A card item which shows more information about a particular Race. */
@@ -8,6 +9,7 @@ const RaceCardComponent = ({ race }) => {
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                     <h5 className="card-title mb-0">{race.name}</h5>
+                    <RaceDetailsToggleButtonComponent name={race.name.toLowerCase().replace(/ /gi, '-')} />
                 </div>
                 <p className="card-text d-flex justify-content-between">
                     <span>Size:</span>
