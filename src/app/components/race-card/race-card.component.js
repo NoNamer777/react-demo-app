@@ -1,5 +1,6 @@
 import './race-card.component.scss';
 
+/** A card item which shows more information about a particular Race. */
 const RaceCardComponent = ({ race }) => {
     return (
         <div className="card shadow-sm bg-body-tertiary text-body-tertiary">

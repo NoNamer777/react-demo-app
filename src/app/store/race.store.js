@@ -1,16 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SIZE_ORDER } from '../constants/race';
+import { SIZE_ORDER } from '../constants';
 
-async function fetchRacesByName(raceNames) {
-    const races = [];
-
-    for (const raceName of raceNames) {
-        const race = await (await fetch(`assets/data/races/${raceName}.json`)).json();
-        races.push(race);
-    }
-    return races;
-}
-
+/** Handles sorting the data by a particular attribute. */
 function sortRaceByAttribute(race1, race2, attribute) {
     switch (attribute) {
         case 'name':
@@ -19,6 +10,7 @@ function sortRaceByAttribute(race1, race2, attribute) {
             const speedCompare = race1.speed - race2.speed;
 
             if (speedCompare === 0) {
+                // Fall back to sorting by name whenever 2 races have the same speed.
                 return race1.name.localeCompare(race2.name);
             }
             return speedCompare;
@@ -26,6 +18,7 @@ function sortRaceByAttribute(race1, race2, attribute) {
             const sizeCompare = SIZE_ORDER[race1.size.toLowerCase()] - SIZE_ORDER[race2.size.toLowerCase()];
 
             if (sizeCompare === 0) {
+                // Fall back to sorting by name whenever 2 races have the same size.
                 return race1.name.localeCompare(race2.name);
             }
             return sizeCompare;
@@ -34,14 +27,19 @@ function sortRaceByAttribute(race1, race2, attribute) {
     }
 }
 
-// Enables use of asynchronous code
+/** Fetches the data asynchronously */
 export const fetchRaceData = createAsyncThunk('races/fetchData', async () => {
     const raceNames = await (await fetch('assets/data/races.json')).json();
+    const races = [];
 
-    return await fetchRacesByName(raceNames);
+    for (const raceName of raceNames) {
+        const race = await (await fetch(`assets/data/races/${raceName}.json`)).json();
+        races.push(race);
+    }
+    return races;
 });
 
-// Creates a part of the store
+/** Contains the state about the data that is shown and filtered. */
 export const raceSlice = createSlice({
     name: 'races',
     // Sets the initial values of this part of the store
@@ -54,13 +52,16 @@ export const raceSlice = createSlice({
         racialTraits: [],
     },
     reducers: {
+        /** Gets a particular slice of data, while also applying filtering and sorting */
         fetchPagedRaceData: (state, action) => {
             state.isLoading = true;
 
+            // Determine the entries to fetch.
             const start = (action.payload.page - 1) * action.payload.pageSize;
             const end = action.payload.page * action.payload.pageSize;
             let races = [...state.data];
 
+            // Apply sorting when necessary
             if (action.payload.sorting) {
                 if (action.payload.sorting.on) {
                     races.sort((r1, r2) => sortRaceByAttribute(r1, r2, action.payload.sorting.on));
@@ -69,6 +70,7 @@ export const raceSlice = createSlice({
                     races.reverse();
                 }
             }
+            // Apply filtering when necessary
             if (action.payload.filters) {
                 if (action.payload.filters.trait) {
                     races = races.filter((race) =>
@@ -95,6 +97,7 @@ export const raceSlice = createSlice({
                 state.data = [...action.payload];
                 state.isLoading = false;
 
+                // Create a list of traits extracted from the Races included in the data
                 state.racialTraits = state.data
                     .flatMap((race) => race.traits)
                     .map((trait) => ({

@@ -2,6 +2,10 @@ import { Link, NavLink } from 'react-router-dom';
 import FilterButtonComponent from '../filter-and-sorting/filter-button/filter-button.component';
 import PaginationComponent from '../pagination/pagination.component';
 
+/**
+ * A component, located at the top of the application, which handles the main navigation within the app.
+ * Also shows the pagination and sorting and filtering panel toggle button when on large or bigger devices.
+ */
 const HeaderComponent = () => {
     return (
         <header className="flex-grow-0 flex-shrink-0 sticky-top">

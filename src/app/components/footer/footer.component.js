@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+/** A component, located at the bottom of the application, showing copyrights symbol and easy link back to the root route */
 const FooterComponent = () => {
     return (
         <footer className="flex-grow-0 flex-shrink-0 d-flex flex-wrap justify-content-between align-items-center py-3 border-top bg-body-tertiary">

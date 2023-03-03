@@ -1,6 +1,41 @@
 # react-demo-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It makes use of the
+`react-router` to handle routing like a SPA, `redux` for global state management, and `bootstrap` and `fontawesome` for
+styling and some icons.
+
+Although a testing suit is included, the tests have not yet been updated and running the tests will result in errors atm.
+
+You can check the application out on a live GitHub Pages at: https://NoNamer777.github.io/react-demo-app/  
+Alternatively, you can follow the instructions below to build and run the application yourself locally.
+
+## How the routing, store and components work together
+
+How I implemented routing and updating the state is as follows:
+
+The `FilteringSortingPanelComponent` is responsible for managing the state and query params for sorting and filtering.
+When selecting a filter or set the sorting will not immediately change the params, pressing the apply button will make
+the changes that effect.
+
+When pressing apply, The query params will be updated. Another listener will respond to the changes to the query params
+and propagate the changes from the query params to the store and back into the input controls of the
+`FilteringSortingPanelComponent` (The input controls won't noticeably change at that point, because they were already
+changed by the User). 
+
+On page load, or refreshing the page the query params will be read and the input controls and store initial values will
+be updated based on those values.
+
+Whenever the `Reset` button is pressed, the query params, store AND input controls will be reset back to the default
+values.
+
+The `PaginationComponent` is responsible for managing the slice of data that is shown in the `OverviewPage`.
+
+On page load, or refreshing of the page, the only task of the `PaginationComponent` is to read the query params, get the
+current page that the `OverviewPage` should be showing, store that information in the global state store and recalculate
+the total number of pages whenever that data is filtered.
+
+The `OverviewPage` will use the global state store to get the correct slice of data, based on the current page in the store
+and change the shown data whenever the current page is changed in the store, or whenever sorting or filtering is applied.
 
 ## Setup
 
@@ -62,7 +97,7 @@ For more information about these environment variables, please refer to the
 In the project directory, you can run the following scripts:
 
 | Script                 | Description                                                                                                                                                                                                                                                                                                                                               |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `npm run start`        | Runs the app in the development mode. Open http://localhost:4200/ to view it in your browser. The page will reload when you make changes. You may also see any lint errors in the console.                                                                                                                                                                |
 | `npm run test`         | Launches the test runner in the interactive watch mode. See the section about [running tests](https://create-react-app.dev/docs/running-tests/) for more information.                                                                                                                                                                                     |
 | `npm run build`        | Builds the app for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed! See the section about [deployment](https://create-react-app.dev/docs/deployment/) for more information. |
@@ -75,7 +110,3 @@ In the project directory, you can run the following scripts:
 
 You can learn more in the [Create React App documentation](https://create-react-app.dev/docs/getting-started/).
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved [here](https://create-react-app.dev/docs/code-splitting/).

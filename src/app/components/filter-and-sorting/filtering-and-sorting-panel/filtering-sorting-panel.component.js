@@ -1,25 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { queryParamKeys } from '../../../constants/queryParam';
 import {
     DEFAULT_FILTERING_BY_TRAIT,
     DEFAULT_SORTING_ON_ATTRIBUTE,
     DEFAULT_SORT_ORDER,
+    queryParamKeys,
     SORTABLE_ATTRIBUTES,
     SORT_ORDERS,
-} from '../../../constants/sorting';
-import { setFilters, setSorting } from '../../../store/pagination.store';
+} from '../../../constants';
+import { setFilters, setSorting } from '../../../store';
 
+/** A side panel which allows a User to set the sorting, or add a filter on the data */
 const FilteringSortingPanelComponent = () => {
     const dispatch = useDispatch();
 
+    // The currently active query params in the route
     const [queryParams, setQueryParams] = useSearchParams();
 
+    // Inputs for the various input controls
     const [sortableAttributes] = useState(SORTABLE_ATTRIBUTES);
     const [sortOrders] = useState(SORT_ORDERS);
     const { racialTraits: filterableTraits } = useSelector((state) => state.races);
 
+    // The current values of the input controls
     const [sortingOnAttribute, setSortingOnAttribute] = useState(
         getInitialValue(queryParamKeys.sortingOnAttribute, DEFAULT_SORTING_ON_ATTRIBUTE)
     );
@@ -32,6 +36,7 @@ const FilteringSortingPanelComponent = () => {
     const [formIsDefault, setFormIsDefault] = useState(false);
     const [hasInitialized, setInitialized] = useState(false);
 
+    // Whenever the query params are updated, update the store state and the form in the side panel as well
     useEffect(() => {
         updateStoreAndFormFromRoute();
         checkFormIsDefault();
@@ -41,6 +46,7 @@ const FilteringSortingPanelComponent = () => {
         }
     }, [queryParams]);
 
+    // Whenever an input control changes value, check if enabling or disabling buttons is required
     useEffect(() => {
         if (!hasInitialized) return;
 
@@ -48,6 +54,7 @@ const FilteringSortingPanelComponent = () => {
         checkFormIsDefault();
     }, [sortOrder, sortingOnAttribute, filteringByTrait]);
 
+    /** Handle updating the store and input controls with values from the query params */
     function updateStoreAndFormFromRoute() {
         if (queryParams.has(queryParamKeys.sortingOnAttribute)) {
             const sortingOnAttributeValue = getInitialValue(
@@ -69,13 +76,16 @@ const FilteringSortingPanelComponent = () => {
         }
     }
 
+    /** Handle submit events */
     function handleOnSubmit(submitEvent) {
+        // Prevent the page from reloading
         submitEvent.preventDefault();
         updateQueryParams();
 
         setChanged(false);
     }
 
+    /** Check whether the input controls are in the default state or not */
     function checkFormIsDefault() {
         const isFormDefault =
             sortOrder === DEFAULT_SORT_ORDER &&
@@ -87,6 +97,7 @@ const FilteringSortingPanelComponent = () => {
         }
     }
 
+    /** Check whether the form has changed since the last time filters or sorting has been applied */
     function checkFormIsChanged() {
         const initialSortingOnAttribute = getInitialValue(
             queryParamKeys.sortingOnAttribute,
@@ -105,6 +116,7 @@ const FilteringSortingPanelComponent = () => {
         }
     }
 
+    /** Resets the form, store state en query params to the default values */
     function handleReset() {
         setQueryParams({ page: 1 });
 
@@ -115,9 +127,12 @@ const FilteringSortingPanelComponent = () => {
         setFilteringByTrait(DEFAULT_FILTERING_BY_TRAIT);
     }
 
+    /** Updates the query params with values from the input controls */
     function updateQueryParams() {
+        // Go back to the first page
         const queryParamsObj = { page: 1 };
 
+        // Don't store the default sorting and filtering in the query params
         if (sortingOnAttribute !== DEFAULT_SORTING_ON_ATTRIBUTE) {
             queryParams.append(queryParamKeys.sortingOnAttribute, sortingOnAttribute);
         }
@@ -130,6 +145,7 @@ const FilteringSortingPanelComponent = () => {
         setQueryParams(queryParamsObj);
     }
 
+    /** Tries to retrieve a value stored in the query params, otherwise use the provided fallback value */
     function getInitialValue(param, fallback) {
         if (queryParams.has(param)) {
             return queryParams.get(param);
@@ -197,6 +213,9 @@ const FilteringSortingPanelComponent = () => {
                         ))}
                     </select>
                 </div>
+                {/* Enable the reset button whenever a change has been made since last applying sorting or filtering
+                 * or if the input controls are not in the default state
+                 */}
                 <button
                     type="reset"
                     className="btn btn-danger"
@@ -205,6 +224,7 @@ const FilteringSortingPanelComponent = () => {
                 >
                     Reset
                 </button>
+                {/* Enable the submit button whenever a change has been made since last applying sorting or filtering */}
                 <button type="submit" className="btn btn-success" data-bs-dismiss="offcanvas" disabled={!hasChanged}>
                     Apply
                 </button>
