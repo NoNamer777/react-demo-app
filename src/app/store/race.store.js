@@ -28,12 +28,12 @@ function sortRaceByAttribute(race1, race2, attribute) {
 }
 
 /** Fetches the data asynchronously */
-export const fetchRaceData = createAsyncThunk('races/fetchData', async () => {
-    const raceNames = await (await fetch('assets/data/races.json')).json();
+export const fetchRaceData = createAsyncThunk('races/fetchData', async (abortSignal) => {
+    const raceNames = await (await fetch('assets/data/races.json', { signal: abortSignal })).json();
     const races = [];
 
     for (const raceName of raceNames) {
-        const race = await (await fetch(`assets/data/races/${raceName}.json`)).json();
+        const race = await (await fetch(`assets/data/races/${raceName}.json`, { signal: abortSignal })).json();
         races.push(race);
     }
     return races;

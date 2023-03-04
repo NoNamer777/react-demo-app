@@ -14,7 +14,14 @@ const OverviewPage = () => {
 
     // Start the data initialization process when the component is created
     useEffect(() => {
-        dispatch(fetchRaceData());
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        dispatch(fetchRaceData(signal));
+
+        return () => {
+            controller.abort();
+        };
     }, []);
 
     // Whenever isInitialized, currentPage, or pageSize changes, fetch the races to show in the overview
